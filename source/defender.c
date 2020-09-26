@@ -138,7 +138,7 @@ static DefenderStatus_t matchApi( const char * pRemainingTopic,
 /**
  * @brief Table of defender APIs.
  */
-static DefenderTopic_t api[] =
+static const DefenderTopic_t defenderApi[] =
 {
     DefenderJsonReportPublish,
     DefenderJsonReportAccepted,
@@ -149,9 +149,9 @@ static DefenderTopic_t api[] =
 };
 
 /**
- * @brief Table of topic API strings in the same order as the above api table.
+ * @brief Table of topic API strings in the same order as the above defenderApi table.
  */
-static const char * const apiTopic[] =
+static const char * const defenderApiTopic[] =
 {
     DEFENDER_API_JSON_REPORT_FORMAT,
     DEFENDER_API_JSON_REPORT_FORMAT DEFENDER_API_ACCEPTED_SUFFIX,
@@ -162,9 +162,9 @@ static const char * const apiTopic[] =
 };
 
 /**
- * @brief Table of topic API string lengths in the same order as the above api table.
+ * @brief Table of topic API string lengths in the same order as the above defenderApi table.
  */
-static const uint16_t apiTopicLength[] =
+static const uint16_t defenderApiTopicLength[] =
 {
     DEFENDER_API_JSON_REPORT_FORMAT_LENGTH,
     DEFENDER_API_JSON_REPORT_FORMAT_LENGTH + DEFENDER_API_ACCEPTED_SUFFIX_LENGTH,
@@ -305,7 +305,7 @@ static DefenderStatus_t extractThingNameLength( const char * pRemainingTopic,
                                                 uint16_t * pOutThingNameLength )
 {
     DefenderStatus_t ret = DefenderNoMatch;
-    uint16_t i;
+    uint16_t i = 0;
 
     assert( pRemainingTopic != NULL );
     assert( pOutThingNameLength != NULL );
@@ -354,14 +354,14 @@ static DefenderStatus_t matchApi( const char * pRemainingTopic,
                                   DefenderTopic_t * pOutApi )
 {
     DefenderStatus_t ret = DefenderNoMatch;
-    uint16_t i;
+    uint16_t i = 0;
 
-    for( i = 0; i < sizeof( api ) / sizeof( api[ 0 ] ); i++ )
+    for( i = 0; i < sizeof( defenderApi ) / sizeof( defenderApi[ 0 ] ); i++ )
     {
-        if( ( remainingTopicLength == apiTopicLength[ i ] ) &&
-            ( memcmp( pRemainingTopic, apiTopic[ i ], apiTopicLength[ i ] ) == 0 ) )
+        if( ( remainingTopicLength == defenderApiTopicLength[ i ] ) &&
+            ( memcmp( pRemainingTopic, defenderApiTopic[ i ], defenderApiTopicLength[ i ] ) == 0 ) )
         {
-            *pOutApi = api[ i ];
+            *pOutApi = defenderApi[ i ];
             ret = DefenderSuccess;
 
             break;
@@ -380,7 +380,7 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
                                     uint32_t * pOutLength )
 {
     DefenderStatus_t ret = DefenderSuccess;
-    uint32_t topicLength, offset = 0;
+    uint32_t topicLength = 0, offset = 0;
 
     if( ( pBuffer == NULL ) ||
         ( pThingName == NULL ) ||
@@ -449,7 +449,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
                                       uint16_t * pOutThingNameLength )
 {
     DefenderStatus_t ret = DefenderSuccess;
-    uint16_t remainingTopicLength, consumedTopicLength, thingNameLength;
+    uint16_t remainingTopicLength = 0, consumedTopicLength = 0, thingNameLength = 0;
 
     if( ( pTopic == NULL ) || ( pOutApi == NULL ) )
     {
@@ -459,6 +459,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
                     ( void * ) pOutApi ) );
     }
 
+    /* Nothing is consumed yet. */
     remainingTopicLength = topicLength;
     consumedTopicLength = 0;
 

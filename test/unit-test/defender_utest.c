@@ -35,26 +35,26 @@
 
 /* Thing name used in the tests. */
 #define TEST_THING_NAME                           "TestThing"
-#define TEST_THING_NAME_LENGTH                    ( sizeof( TEST_THING_NAME ) - 1U )
+#define TEST_THING_NAME_LENGTH                    STRING_LITERAL_LENGTH( TEST_THING_NAME )
 
 /* Topics used in the tests. */
 #define TEST_JSON_REPORT_PUBLISH_TOPIC            "$aws/things/" TEST_THING_NAME "/defender/metrics/json"
-#define TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH     ( sizeof( TEST_JSON_REPORT_PUBLISH_TOPIC ) - 1U )
+#define TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH     STRING_LITERAL_LENGTH( TEST_JSON_REPORT_PUBLISH_TOPIC )
 
 #define TEST_JSON_REPORT_ACCEPTED_TOPIC           "$aws/things/" TEST_THING_NAME "/defender/metrics/json/accepted"
-#define TEST_JSON_REPORT_ACCEPTED_TOPIC_LENGTH    ( sizeof( TEST_JSON_REPORT_ACCEPTED_TOPIC ) - 1U )
+#define TEST_JSON_REPORT_ACCEPTED_TOPIC_LENGTH    STRING_LITERAL_LENGTH( TEST_JSON_REPORT_ACCEPTED_TOPIC )
 
 #define TEST_JSON_REPORT_REJECTED_TOPIC           "$aws/things/" TEST_THING_NAME "/defender/metrics/json/rejected"
-#define TEST_JSON_REPORT_REJECTED_TOPIC_LENGTH    ( sizeof( TEST_JSON_REPORT_REJECTED_TOPIC ) - 1U )
+#define TEST_JSON_REPORT_REJECTED_TOPIC_LENGTH    STRING_LITERAL_LENGTH( TEST_JSON_REPORT_REJECTED_TOPIC )
 
 #define TEST_CBOR_REPORT_PUBLISH_TOPIC            "$aws/things/" TEST_THING_NAME "/defender/metrics/cbor"
-#define TEST_CBOR_REPORT_PUBLISH_TOPIC_LENGTH     ( sizeof( TEST_CBOR_REPORT_PUBLISH_TOPIC ) - 1U )
+#define TEST_CBOR_REPORT_PUBLISH_TOPIC_LENGTH     STRING_LITERAL_LENGTH( TEST_CBOR_REPORT_PUBLISH_TOPIC )
 
 #define TEST_CBOR_REPORT_ACCEPTED_TOPIC           "$aws/things/" TEST_THING_NAME "/defender/metrics/cbor/accepted"
-#define TEST_CBOR_REPORT_ACCEPTED_TOPIC_LENGTH    ( sizeof( TEST_CBOR_REPORT_ACCEPTED_TOPIC ) - 1U )
+#define TEST_CBOR_REPORT_ACCEPTED_TOPIC_LENGTH    STRING_LITERAL_LENGTH( TEST_CBOR_REPORT_ACCEPTED_TOPIC )
 
 #define TEST_CBOR_REPORT_REJECTED_TOPIC           "$aws/things/" TEST_THING_NAME "/defender/metrics/cbor/rejected"
-#define TEST_CBOR_REPORT_REJECTED_TOPIC_LENGTH    ( sizeof( TEST_CBOR_REPORT_REJECTED_TOPIC ) - 1U )
+#define TEST_CBOR_REPORT_REJECTED_TOPIC_LENGTH    STRING_LITERAL_LENGTH( TEST_CBOR_REPORT_REJECTED_TOPIC )
 
 /* Length of the topic buffer used in tests. Guard buffers are placed before and
  * after the topic buffer to verify that defender APIs do not write out of
@@ -464,7 +464,7 @@ void test_Defender_MatchTopic_IncompletePrefix( void )
     DefenderTopic_t api;
 
     ret = Defender_MatchTopic( "$aws/things",
-                               sizeof( "$aws/things" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -481,7 +481,7 @@ void test_Defender_MatchTopic_InvalidPrefix( void )
     DefenderTopic_t api;
 
     ret = Defender_MatchTopic( "$aws/jobs/things/TestThing/defender/metrics/json",
-                               sizeof( "$aws/jobs/things/TestThing/defender/metrics/json" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/jobs/things/TestThing/defender/metrics/json" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -489,7 +489,7 @@ void test_Defender_MatchTopic_InvalidPrefix( void )
     TEST_ASSERT_EQUAL( DefenderInvalidTopic, api );
 
     ret = Defender_MatchTopic( "$aws/things/jobs/TestThing/defender/metrics/json",
-                               sizeof( "$aws/jobs/TestThing/defender/metrics/json" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/jobs/TestThing/defender/metrics/json" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -506,7 +506,7 @@ void test_Defender_MatchTopic_MissingThingName( void )
     DefenderTopic_t api;
 
     ret = Defender_MatchTopic( "$aws/things/",
-                               sizeof( "$aws/things/" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -523,7 +523,7 @@ void test_Defender_MatchTopic_IncompleteBridge( void )
     DefenderTopic_t api;
 
     ret = Defender_MatchTopic( "$aws/things/TestThing",
-                               sizeof( "$aws/things/TestThing" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -531,7 +531,7 @@ void test_Defender_MatchTopic_IncompleteBridge( void )
     TEST_ASSERT_EQUAL( DefenderInvalidTopic, api );
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/",
-                               sizeof( "$aws/things/TestThing/" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -539,7 +539,7 @@ void test_Defender_MatchTopic_IncompleteBridge( void )
     TEST_ASSERT_EQUAL( DefenderInvalidTopic, api );
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/defender",
-                               sizeof( "$aws/things/TestThing/defender" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/defender" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -556,7 +556,7 @@ void test_Defender_MatchTopic_InvalidBridge( void )
     DefenderTopic_t api;
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/shadow/metrics/json",
-                               sizeof( "$aws/things/TestThing/shadow/metrics/json" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/shadow/metrics/json" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -564,7 +564,7 @@ void test_Defender_MatchTopic_InvalidBridge( void )
     TEST_ASSERT_EQUAL( DefenderInvalidTopic, api );
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/defender/defender/metrics/json",
-                               sizeof( "$aws/things/TestThing/defender/defender/metrics/json" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/defender/defender/metrics/json" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -581,7 +581,7 @@ void test_Defender_MatchTopic_IncompleteFormat( void )
     DefenderTopic_t api;
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/defender/metrics",
-                               sizeof( "$aws/things/TestThing/defender/metrics" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/defender/metrics" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -589,7 +589,7 @@ void test_Defender_MatchTopic_IncompleteFormat( void )
     TEST_ASSERT_EQUAL( DefenderInvalidTopic, api );
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/defender/metrics/",
-                               sizeof( "$aws/things/TestThing/defender/metrics/" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/defender/metrics/" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -606,7 +606,7 @@ void test_Defender_MatchTopic_InvalidFormat( void )
     DefenderTopic_t api;
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/defender/metrics/xml",
-                               sizeof( "$aws/things/TestThing/defender/metrics/xml" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/defender/metrics/xml" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -623,7 +623,7 @@ void test_Defender_MatchTopic_InvalidSuffix( void )
     DefenderTopic_t api;
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/defender/metrics/json/delta",
-                               sizeof( "$aws/things/TestThing/defender/metrics/json/delta" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/defender/metrics/json/delta" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -640,7 +640,7 @@ void test_Defender_MatchTopic_ExtraData( void )
     DefenderTopic_t api;
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/defender/metrics/json/gibberish",
-                               sizeof( "$aws/things/TestThing/defender/metrics/json/gibberish" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/defender/metrics/json/gibberish" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -648,7 +648,7 @@ void test_Defender_MatchTopic_ExtraData( void )
     TEST_ASSERT_EQUAL( DefenderInvalidTopic, api );
 
     ret = Defender_MatchTopic( "$aws/things/TestThing/defender/metrics/json/accepted/gibberish",
-                               sizeof( "$aws/things/TestThing/defender/metrics/json/accepted/gibberish" ) - 1,
+                               STRING_LITERAL_LENGTH( "$aws/things/TestThing/defender/metrics/json/accepted/gibberish" ),
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );

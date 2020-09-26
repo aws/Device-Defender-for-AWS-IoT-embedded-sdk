@@ -3,8 +3,8 @@
 This repository contains the Device Defender client library for interacting with
 the [AWS IoT Device Defender Service](https://aws.amazon.com/iot-device-defender/).
 This library has no dependencies on any additional libraries other than the
-standard C library and therefore, can be used with any MQTT client library. This
-library is distributed under the [MIT Open Source License](LICENSE).
+standard C library, and therefore, can be used with any MQTT client library.
+This library is distributed under the [MIT Open Source License](LICENSE).
 
 This library has gone through code quality checks including verification that no
 function has a [GNU Complexity](https://www.gnu.org/software/complexity/manual/complexity.html)
@@ -15,7 +15,7 @@ score over 8.
 The Device Defender client library exposes build configuration macros that are
 required for building the library. A list of all the configurations and their
 default values are defined in
-[defender_config_defaults.h](https://github.com/aws/device-defender-for-aws-iot-embedded-sdk/blob/master/source/include/defender_config_defaults.h).
+[defender_config_defaults.h](source/include/defender_config_defaults.h).
 To provide custom values for the configuration macros, a config file named
 `defender_config.h` can be provided by the application to the library.
 
@@ -35,9 +35,9 @@ library build.
 
 ## Building the Library
 
-The [defenderFilePaths.cmake](https://github.com/aws/device-defender-for-aws-iot-embedded-sdk/blob/master/defenderFilePaths.cmake)
-file contains the information of all source files and the header include paths
-required to build the Device Defender client library.
+The [defenderFilePaths.cmake](defenderFilePaths.cmake) file contains the
+information of all source files and the header include paths required to build
+the Device Defender client library.
 
 As mentioned in the previous section, either a custom config file
 (i.e. `defender_config.h`) or `DEFENDER_DO_NOT_USE_CUSTOM_CONFIG` macro needs to
@@ -45,7 +45,7 @@ be provided to build the Device Defender client library.
 
 For a CMake example of building the Device Defender client library with the
 `defenderFilePaths.cmake` file, refer to the `coverity_analysis` library target
-in [test/CMakeLists.txt](https://github.com/aws/device-defender-for-aws-iot-embedded-sdk/blob/master/test/CMakeLists.txt) file.
+in [test/CMakeLists.txt](test/CMakeLists.txt) file.
 
 ## Building Unit Tests
 
