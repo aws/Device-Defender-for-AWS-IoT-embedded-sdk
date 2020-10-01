@@ -1,10 +1,10 @@
-# Emitted when running CBMC proofs
+# Emitted when running CBMC proofs.
 proofs/**/logs
 proofs/**/gotos
 proofs/**/report
 proofs/**/html
 
-# Emitted by CBMC Viewer
+# Emitted by CBMC Viewer.
 TAGS-*
 
 # Emitted by Arpa
@@ -12,5 +12,11 @@ arpa_cmake/
 arpa-validation-logs/
 Makefile.arpa
 
-# These files should be overwritten whenever prepare.py runs
+# These files should be overwritten whenever prepare.py runs.
 cbmc-batch.yaml
+
+# Artifacts from running proofs.
+.litani_cache_dir
+.ninja_deps
+.ninja_log
+__pycache__/
