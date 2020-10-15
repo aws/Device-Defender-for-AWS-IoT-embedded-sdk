@@ -12,9 +12,6 @@ arpa_cmake/
 arpa-validation-logs/
 Makefile.arpa
 
-# These files should be overwritten whenever prepare.py runs.
-cbmc-batch.yaml
-
 # Artifacts from running proofs.
 .litani_cache_dir
 .ninja_deps
