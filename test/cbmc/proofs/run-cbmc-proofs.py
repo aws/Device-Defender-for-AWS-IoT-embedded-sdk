@@ -38,7 +38,7 @@ The tool is roughly equivalent to doing this:
 
         litani init --project "FreeRTOS Device Defender";
 
-        for proof in $(find . -name wellspring.txt); do
+        for proof in $(find . -name cbmc-proof.txt); do
             pushd $(dirname ${proof});
             make report;
             popd;
