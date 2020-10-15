@@ -205,12 +205,13 @@ static uint32_t getTopicLength( uint16_t thingNameLength,
             topicLength = DEFENDER_API_CBOR_REPORT_ACCEPTED_LENGTH( thingNameLength );
             break;
 
+        /* The default is here just to silence compiler warnings in a way which
+         * does not bring coverage down. The assert at the beginning of this
+         * function ensures that the only api value hitting this case can be
+         * DefenderCborReportRejected. */
         case DefenderCborReportRejected:
-            topicLength = DEFENDER_API_CBOR_REPORT_REJECTED_LENGTH( thingNameLength );
-            break;
-
         default:
-            /* Invalid. */
+            topicLength = DEFENDER_API_CBOR_REPORT_REJECTED_LENGTH( thingNameLength );
             break;
     }
 
@@ -265,17 +266,18 @@ static void writeFormatAndSuffix( char * pBuffer,
                     DEFENDER_API_ACCEPTED_SUFFIX_LENGTH );
             break;
 
+        /* The default is here just to silence compiler warnings in a way which
+         * does not bring coverage down. The assert at the beginning of this
+         * function ensures that the only api value hitting this case can be
+         * DefenderCborReportRejected. */
         case DefenderCborReportRejected:
+        default:
             memcpy( pBuffer,
                     DEFENDER_API_CBOR_REPORT_FORMAT,
                     DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH );
             memcpy( &( pBuffer[ DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH ] ),
                     DEFENDER_API_REJECTED_SUFFIX,
                     DEFENDER_API_REJECTED_SUFFIX_LENGTH );
-            break;
-
-        default:
-            /* Invalid. */
             break;
     }
 }
