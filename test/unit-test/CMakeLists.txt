@@ -1,51 +1,48 @@
 # Include filepaths for Device Defender library.
 include( ${MODULE_ROOT_DIR}/defenderFilePaths.cmake )
 
-# ====================  Define your project name (edit) ========================
-set( project_name "defender" )
+set( library_name "defender" )
+set( library_target_name "${library_name}_target" )
+set( utest_binary_name "${library_name}_utest" )
 
-# =====================  Create your mock here  (edit)  ========================
-# No mocks are needed for device defender library.
+# =========================== Library ==============================
 
-# ================= Create the library under test here (edit) ==================
+# List of library source files.
+list( APPEND library_source_files
+             ${DEFENDER_SOURCES} )
 
-# List the files you would like to test here.
-list( APPEND real_source_files
-      ${DEFENDER_SOURCES} )
-
-# List the directories the module under test includes.
-list( APPEND real_include_directories
+# List of library include directories.
+list( APPEND library_include_directories
       ${DEFENDER_INCLUDE_PUBLIC_DIRS} )
 
+# Create a target for building library.
+create_library_target( ${library_target_name}
+                       "${library_source_files}"
+                       "${library_include_directories}" )
+
 # Build Device Defender library without requiring config file.
-add_compile_definitions( DEFENDER_DO_NOT_USE_CUSTOM_CONFIG )
+target_compile_definitions( ${library_target_name} PUBLIC DEFENDER_DO_NOT_USE_CUSTOM_CONFIG=1 )
 
-# =====================  Create UnitTest Code here (edit)  =====================
+# =========================== Test Binary ==============================
 
-# List the directories your test needs to include.
-list( APPEND test_include_directories
-     ${DEFENDER_INCLUDE_PUBLIC_DIRS} )
+# The source file containing the unit tests.
+set( utest_source_file "defender_utest.c" )
 
-# =============================  (end edit)  ===================================
+# The list of include directories for the test binary target.
+list( APPEND utest_include_directories
+             ${DEFENDER_INCLUDE_PUBLIC_DIRS} )
 
-set( real_name "${project_name}_real" )
-
-create_real_library( ${real_name}
-                     "${real_source_files}"
-                     "${real_include_directories}"
-                     "${mock_name}"
-                   )
-
+# Libraries to be linked while building the test binary.
 list( APPEND utest_link_list
-      lib${real_name}.a )
+             lib${library_target_name}.a )
 
+# The targets on which the test binary target depends.
 list( APPEND utest_dep_list
-     ${real_name} )
+             ${library_target_name} )
 
-set( utest_name "${project_name}_utest" )
-set( utest_source "${project_name}_utest.c" )
-create_test( ${utest_name}
-             ${utest_source}
-             "${utest_link_list}"
-             "${utest_dep_list}"
-             "${test_include_directories}" )
+# Create a target for the test binary.
+create_test_binary_target( ${utest_binary_name}
+                           ${utest_source_file}
+                           "${utest_link_list}"
+                           "${utest_dep_list}"
+                           "${test_include_directories}" )

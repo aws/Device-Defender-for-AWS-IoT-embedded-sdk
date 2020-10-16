@@ -11,8 +11,8 @@ execute_process( COMMAND mkdir -p  ${CMAKE_BINARY_DIR}/coverage )
 
 # Generate "baseline" coverage data with zero coverage for every instrumented
 # line. This is later combined with the coverage data from test run to ensure
-# that the percentage of the percentage of total lines covered is correct even
-# when not all source code files were loaded during the test.
+# that the percentage of total lines covered is correct even when not all source
+# code files were loaded during the test.
 execute_process( COMMAND lcov --directory ${CMAKE_BINARY_DIR}
                          --base-directory ${CMAKE_BINARY_DIR}
                          --initial
@@ -41,7 +41,7 @@ endforeach()
 
 # Generate Junit style xml output.
 execute_process( COMMAND ruby
-                         ${CMOCK_DIR}/vendor/unity/auto/parse_output.rb
+                         ${UNITY_DIR}/auto/parse_output.rb
                          -xml ${REPORT_FILE}
                          WORKING_DIRECTORY ${CMAKE_BINARY_DIR} )
 

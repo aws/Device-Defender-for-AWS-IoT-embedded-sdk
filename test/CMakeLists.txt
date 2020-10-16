@@ -18,8 +18,10 @@ endif()
 # Set global path variable.
 get_filename_component( __MODULE_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE )
 set( MODULE_ROOT_DIR ${__MODULE_ROOT_DIR} CACHE INTERNAL "Device Defender repository root." )
+set( UNIT_TEST_DIR ${MODULE_ROOT_DIR}/test/unit-test CACHE INTERNAL "Device Defender unit test directory." )
+set( UNITY_DIR ${UNIT_TEST_DIR}/Unity CACHE INTERNAL "Unity library source directory." )
 
-# Configure options to s show in CMake GUI.
+# Configure options to always show in CMake GUI.
 option( BUILD_CLONE_SUBMODULES
         "Set this to ON to automatically clone any required Git submodules. When OFF, submodules must be manually cloned."
         ON )
@@ -46,31 +48,28 @@ target_include_directories( coverity_analysis PUBLIC ${DEFENDER_INCLUDE_PUBLIC_D
 
 #  ============================  Test Configuration ============================
 
-# Define a CMock resource path.
-set( CMOCK_DIR ${MODULE_ROOT_DIR}/test/unit-test/CMock CACHE INTERNAL "CMock library source directory." )
+# Include Unity build configuration.
+include( unit-test/unity_build.cmake )
 
-# Include CMock build configuration.
-include( unit-test/cmock_build.cmake )
-
-# Check if the CMock source directory exists. If it does not exist and the
-# BUILD_CLONE_SUBMODULES configuration is enabled, clone the CMock submodule.
-if( NOT EXISTS ${CMOCK_DIR}/src )
-    # Attempt to clone CMock.
+# Check if the Unity source directory exists. If it does not exist and the
+# BUILD_CLONE_SUBMODULES configuration is enabled, clone the Unity submodule.
+if( NOT EXISTS ${UNITY_DIR}/src )
+    # Attempt to clone Unity.
     if( ${BUILD_CLONE_SUBMODULES} )
-        clone_cmock()
+        clone_unity()
     else()
-        message( FATAL_ERROR "The required submodule CMock does not exist. Either clone it manually, or set BUILD_CLONE_SUBMODULES to 1 to automatically clone it during build." )
+        message( FATAL_ERROR "The required submodule Unity does not exist. Either clone it manually, or set BUILD_CLONE_SUBMODULES to 1 to automatically clone it during build." )
     endif()
 endif()
 
 # Use CTest utility for managing test runs.
 enable_testing()
 
-# Add build targets for CMock and Unity, required for unit testing.
-add_cmock_targets()
+# Add build target for Unity, required for unit testing.
+add_unity_target()
 
-# Add function to enable CMock based tests and coverage.
-include( ${MODULE_ROOT_DIR}/tools/cmock/create_test.cmake )
+# Add functions to enable Unity based tests and coverage.
+include( ${MODULE_ROOT_DIR}/tools/unity/create_test.cmake )
 
 # Include build configuration for unit tests.
 add_subdirectory( unit-test )
@@ -79,7 +78,7 @@ add_subdirectory( unit-test )
 
 # Add a target for running coverage on tests.
 add_custom_target( coverage
-                   COMMAND ${CMAKE_COMMAND} -DCMOCK_DIR=${CMOCK_DIR}
-                                            -P ${MODULE_ROOT_DIR}/tools/cmock/coverage.cmake
-                   DEPENDS cmock unity defender_utest
+                   COMMAND ${CMAKE_COMMAND} -DUNITY_DIR=${UNITY_DIR}
+                                            -P ${MODULE_ROOT_DIR}/tools/unity/coverage.cmake
+                   DEPENDS unity defender_utest
                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR} )
