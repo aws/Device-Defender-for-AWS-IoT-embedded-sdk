@@ -44,7 +44,7 @@
 /**
  * @brief Return codes from defender APIs.
  */
-typedef enum DefenderStatus
+typedef enum
 {
     DefenderError = 0,
     DefenderSuccess,
@@ -56,7 +56,7 @@ typedef enum DefenderStatus
 /**
  * @brief Topic values for subscription requests.
  */
-typedef enum DefenderTopic
+typedef enum
 {
     DefenderInvalidTopic = -1,
     DefenderJsonReportPublish,
@@ -73,11 +73,11 @@ typedef enum DefenderTopic
 /**
  * @brief Helper macro to calculate the length of a string literal.
  */
-#define STRING_LITERAL_LENGTH( literal )    ( sizeof( literal ) - 1U )
+#define STRING_LITERAL_LENGTH( literal )    ( ( uint16_t ) ( sizeof( literal ) - 1U ) )
 
 /*-----------------------------------------------------------*/
 
-#define DEFENDER_THINGNAME_MAX_LENGTH         128   /* Per AWS IoT Core Reference. */
+#define DEFENDER_THINGNAME_MAX_LENGTH         128U  /* Per AWS IoT Core Reference. */
 #define DEFENDER_REPORT_MIN_PERIOD_SECONDS    300   /* Per AWS IoT Device Defender Reference. */
 
 /*-----------------------------------------------------------*/
@@ -103,69 +103,69 @@ typedef enum DefenderTopic
  * $aws/things/THING_NAME/defender/metrics/json/rejected
  */
 
-#define DEFENDER_API_PREFIX                       "$aws/things/"
-#define DEFENDER_API_PREFIX_LENGTH                STRING_LITERAL_LENGTH( DEFENDER_API_PREFIX )
+#define DEFENDER_API_PREFIX                    "$aws/things/"
+#define DEFENDER_API_LENGTH_PREFIX             STRING_LITERAL_LENGTH( DEFENDER_API_PREFIX )
 
-#define DEFENDER_API_BRIDGE                       "/defender/metrics/"
-#define DEFENDER_API_BRIDGE_LENGTH                STRING_LITERAL_LENGTH( DEFENDER_API_BRIDGE )
+#define DEFENDER_API_BRIDGE                    "/defender/metrics/"
+#define DEFENDER_API_LENGTH_BRIDGE             STRING_LITERAL_LENGTH( DEFENDER_API_BRIDGE )
 
-#define DEFENDER_API_JSON_REPORT_FORMAT           "json"
-#define DEFENDER_API_JSON_REPORT_FORMAT_LENGTH    STRING_LITERAL_LENGTH( DEFENDER_API_JSON_REPORT_FORMAT )
+#define DEFENDER_API_JSON_FORMAT               "json"
+#define DEFENDER_API_LENGTH_JSON_FORMAT        STRING_LITERAL_LENGTH( DEFENDER_API_JSON_FORMAT )
 
-#define DEFENDER_API_CBOR_REPORT_FORMAT           "cbor"
-#define DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH    STRING_LITERAL_LENGTH( DEFENDER_API_CBOR_REPORT_FORMAT )
+#define DEFENDER_API_CBOR_FORMAT               "cbor"
+#define DEFENDER_API_LENGTH_CBOR_FORMAT        STRING_LITERAL_LENGTH( DEFENDER_API_CBOR_FORMAT )
 
-#define DEFENDER_API_ACCEPTED_SUFFIX              "/accepted"
-#define DEFENDER_API_ACCEPTED_SUFFIX_LENGTH       STRING_LITERAL_LENGTH( DEFENDER_API_ACCEPTED_SUFFIX )
+#define DEFENDER_API_ACCEPTED_SUFFIX           "/accepted"
+#define DEFENDER_API_LENGTH_ACCEPTED_SUFFIX    STRING_LITERAL_LENGTH( DEFENDER_API_ACCEPTED_SUFFIX )
 
-#define DEFENDER_API_REJECTED_SUFFIX              "/rejected"
-#define DEFENDER_API_REJECTED_SUFFIX_LENGTH       STRING_LITERAL_LENGTH( DEFENDER_API_REJECTED_SUFFIX )
+#define DEFENDER_API_REJECTED_SUFFIX           "/rejected"
+#define DEFENDER_API_LENGTH_REJECTED_SUFFIX    STRING_LITERAL_LENGTH( DEFENDER_API_REJECTED_SUFFIX )
 
-#define DEFENDER_API_NULL_SUFFIX                  ""
-#define DEFENDER_API_NULL_SUFFIX_LENGTH           ( 0U )
+#define DEFENDER_API_NULL_SUFFIX               ""
+#define DEFENDER_API_LENGTH_NULL_SUFFIX        ( 0U )
 
 /*-----------------------------------------------------------*/
 
 /* Defender API topic lengths. */
 #define DEFENDER_API_COMMON_LENGTH( thingNameLength, reportFormatLength, suffixLength ) \
-    ( DEFENDER_API_PREFIX_LENGTH +                                                      \
+    ( DEFENDER_API_LENGTH_PREFIX +                                                      \
       ( thingNameLength ) +                                                             \
-      DEFENDER_API_BRIDGE_LENGTH +                                                      \
+      DEFENDER_API_LENGTH_BRIDGE +                                                      \
       ( reportFormatLength ) +                                                          \
       ( suffixLength ) )
 
-#define DEFENDER_API_JSON_REPORT_PUBLISH_LENGTH( thingNameLength )      \
-    DEFENDER_API_COMMON_LENGTH( thingNameLength,                        \
-                                DEFENDER_API_JSON_REPORT_FORMAT_LENGTH, \
-                                DEFENDER_API_NULL_SUFFIX_LENGTH )
+#define DEFENDER_API_LENGTH_JSON_PUBLISH( thingNameLength )      \
+    DEFENDER_API_COMMON_LENGTH( thingNameLength,                 \
+                                DEFENDER_API_LENGTH_JSON_FORMAT, \
+                                DEFENDER_API_LENGTH_NULL_SUFFIX )
 
-#define DEFENDER_API_JSON_REPORT_ACCEPTED_LENGTH( thingNameLength )     \
-    DEFENDER_API_COMMON_LENGTH( thingNameLength,                        \
-                                DEFENDER_API_JSON_REPORT_FORMAT_LENGTH, \
-                                DEFENDER_API_ACCEPTED_SUFFIX_LENGTH )
+#define DEFENDER_API_LENGTH_JSON_ACCEPTED( thingNameLength )     \
+    DEFENDER_API_COMMON_LENGTH( thingNameLength,                 \
+                                DEFENDER_API_LENGTH_JSON_FORMAT, \
+                                DEFENDER_API_LENGTH_ACCEPTED_SUFFIX )
 
-#define DEFENDER_API_JSON_REPORT_REJECTED_LENGTH( thingNameLength )     \
-    DEFENDER_API_COMMON_LENGTH( thingNameLength,                        \
-                                DEFENDER_API_JSON_REPORT_FORMAT_LENGTH, \
-                                DEFENDER_API_REJECTED_SUFFIX_LENGTH )
+#define DEFENDER_API_LENGTH_JSON_REJECTED( thingNameLength )     \
+    DEFENDER_API_COMMON_LENGTH( thingNameLength,                 \
+                                DEFENDER_API_LENGTH_JSON_FORMAT, \
+                                DEFENDER_API_LENGTH_REJECTED_SUFFIX )
 
-#define DEFENDER_API_CBOR_REPORT_PUBLISH_LENGTH( thingNameLength )      \
-    DEFENDER_API_COMMON_LENGTH( thingNameLength,                        \
-                                DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH, \
-                                DEFENDER_API_NULL_SUFFIX_LENGTH )
+#define DEFENDER_API_LENGTH_CBOR_PUBLISH( thingNameLength )      \
+    DEFENDER_API_COMMON_LENGTH( thingNameLength,                 \
+                                DEFENDER_API_LENGTH_CBOR_FORMAT, \
+                                DEFENDER_API_LENGTH_NULL_SUFFIX )
 
-#define DEFENDER_API_CBOR_REPORT_ACCEPTED_LENGTH( thingNameLength )     \
-    DEFENDER_API_COMMON_LENGTH( thingNameLength,                        \
-                                DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH, \
-                                DEFENDER_API_ACCEPTED_SUFFIX_LENGTH )
+#define DEFENDER_API_LENGTH_CBOR_ACCEPTED( thingNameLength )     \
+    DEFENDER_API_COMMON_LENGTH( thingNameLength,                 \
+                                DEFENDER_API_LENGTH_CBOR_FORMAT, \
+                                DEFENDER_API_LENGTH_ACCEPTED_SUFFIX )
 
-#define DEFENDER_API_CBOR_REPORT_REJECTED_LENGTH( thingNameLength )     \
-    DEFENDER_API_COMMON_LENGTH( thingNameLength,                        \
-                                DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH, \
-                                DEFENDER_API_REJECTED_SUFFIX_LENGTH )
+#define DEFENDER_API_LENGTH_CBOR_REJECTED( thingNameLength )     \
+    DEFENDER_API_COMMON_LENGTH( thingNameLength,                 \
+                                DEFENDER_API_LENGTH_CBOR_FORMAT, \
+                                DEFENDER_API_LENGTH_REJECTED_SUFFIX )
 
 #define DEFENDER_API_MAX_LENGTH( thingNameLength ) \
-    DEFENDER_API_CBOR_REPORT_ACCEPTED_LENGTH( thingNameLength )
+    DEFENDER_API_LENGTH_CBOR_ACCEPTED( thingNameLength )
 
 /*-----------------------------------------------------------*/
 
@@ -177,34 +177,34 @@ typedef enum DefenderTopic
       reportFormat                                             \
       suffix )
 
-#define DEFENDER_API_JSON_REPORT_PUBLISH( thingName )     \
-    DEFENDER_API_COMMON( thingName,                       \
-                         DEFENDER_API_JSON_REPORT_FORMAT, \
+#define DEFENDER_API_JSON_PUBLISH( thingName )     \
+    DEFENDER_API_COMMON( thingName,                \
+                         DEFENDER_API_JSON_FORMAT, \
                          DEFENDER_API_NULL_SUFFIX )
 
-#define DEFENDER_API_JSON_REPORT_ACCEPTED( thingName )    \
-    DEFENDER_API_COMMON( thingName,                       \
-                         DEFENDER_API_JSON_REPORT_FORMAT, \
+#define DEFENDER_API_JSON_ACCEPTED( thingName )    \
+    DEFENDER_API_COMMON( thingName,                \
+                         DEFENDER_API_JSON_FORMAT, \
                          DEFENDER_API_ACCEPTED_SUFFIX )
 
-#define DEFENDER_API_JSON_REPORT_REJECTED( thingName )    \
-    DEFENDER_API_COMMON( thingName,                       \
-                         DEFENDER_API_JSON_REPORT_FORMAT, \
+#define DEFENDER_API_JSON_REJECTED( thingName )    \
+    DEFENDER_API_COMMON( thingName,                \
+                         DEFENDER_API_JSON_FORMAT, \
                          DEFENDER_API_REJECTED_SUFFIX )
 
-#define DEFENDER_API_CBOR_REPORT_PUBLISH( thingName )     \
-    DEFENDER_API_COMMON( thingName,                       \
-                         DEFENDER_API_CBOR_REPORT_FORMAT, \
+#define DEFENDER_API_CBOR_PUBLISH( thingName )     \
+    DEFENDER_API_COMMON( thingName,                \
+                         DEFENDER_API_CBOR_FORMAT, \
                          DEFENDER_API_NULL_SUFFIX )
 
-#define DEFENDER_API_CBOR_REPORT_ACCEPTED( thingName )    \
-    DEFENDER_API_COMMON( thingName,                       \
-                         DEFENDER_API_CBOR_REPORT_FORMAT, \
+#define DEFENDER_API_CBOR_ACCEPTED( thingName )    \
+    DEFENDER_API_COMMON( thingName,                \
+                         DEFENDER_API_CBOR_FORMAT, \
                          DEFENDER_API_ACCEPTED_SUFFIX )
 
-#define DEFENDER_API_CBOR_REPORT_REJECTED( thingName )    \
-    DEFENDER_API_COMMON( thingName,                       \
-                         DEFENDER_API_CBOR_REPORT_FORMAT, \
+#define DEFENDER_API_CBOR_REJECTED( thingName )    \
+    DEFENDER_API_COMMON( thingName,                \
+                         DEFENDER_API_CBOR_FORMAT, \
                          DEFENDER_API_REJECTED_SUFFIX )
 
 /*-----------------------------------------------------------*/
@@ -217,67 +217,67 @@ typedef enum DefenderTopic
 #endif
 
 #define DEFENDER_REPORT_HEADER_KEY                            DEFENDER_REPORT_SELECT_KEY( "header", "hed" )
-#define DEFENDER_REPORT_HEADER_KEY_LENGTH                     STRING_LITERAL_LENGTH( DEFENDER_REPORT_HEADER_KEY )
+#define DEFENDER_REPORT_LENGTH_HEADER_KEY                     STRING_LITERAL_LENGTH( DEFENDER_REPORT_HEADER_KEY )
 
 #define DEFENDER_REPORT_METRICS_KEY                           DEFENDER_REPORT_SELECT_KEY( "metrics", "met" )
-#define DEFENDER_REPORT_METRICS_KEY_LENGTH                    STRING_LITERAL_LENGTH( DEFENDER_REPORT_METRICS_KEY )
+#define DEFENDER_REPORT_LENGTH_METRICS_KEY                    STRING_LITERAL_LENGTH( DEFENDER_REPORT_METRICS_KEY )
 
 #define DEFENDER_REPORT_ID_KEY                                DEFENDER_REPORT_SELECT_KEY( "report_id", "rid" )
-#define DEFENDER_REPORT_ID_KEY_LENGTH                         STRING_LITERAL_LENGTH( DEFENDER_REPORT_ID_KEY )
+#define DEFENDER_REPORT_LENGTH_ID_KEY                         STRING_LITERAL_LENGTH( DEFENDER_REPORT_ID_KEY )
 
 #define DEFENDER_REPORT_VERSION_KEY                           DEFENDER_REPORT_SELECT_KEY( "version", "v" )
-#define DEFENDER_REPORT_VERSION_KEY_LENGTH                    STRING_LITERAL_LENGTH( DEFENDER_REPORT_VERSION_KEY )
+#define DEFENDER_REPORT_LENGTH_VERSION_KEY                    STRING_LITERAL_LENGTH( DEFENDER_REPORT_VERSION_KEY )
 
 #define DEFENDER_REPORT_TCP_CONNECTIONS_KEY                   DEFENDER_REPORT_SELECT_KEY( "tcp_connections", "tc" )
-#define DEFENDER_REPORT_TCP_CONNECTIONS_KEY_LENGTH            STRING_LITERAL_LENGTH( DEFENDER_REPORT_TCP_CONNECTIONS_KEY )
+#define DEFENDER_REPORT_LENGTH_TCP_CONNECTIONS_KEY            STRING_LITERAL_LENGTH( DEFENDER_REPORT_TCP_CONNECTIONS_KEY )
 
 #define DEFENDER_REPORT_ESTABLISHED_CONNECTIONS_KEY           DEFENDER_REPORT_SELECT_KEY( "established_connections", "ec" )
-#define DEFENDER_REPORT_ESTABLISHED_CONNECTIONS_KEY_LENGTH    STRING_LITERAL_LENGTH( DEFENDER_REPORT_ESTABLISHED_CONNECTIONS_KEY )
+#define DEFENDER_REPORT_LENGTH_ESTABLISHED_CONNECTIONS_KEY    STRING_LITERAL_LENGTH( DEFENDER_REPORT_ESTABLISHED_CONNECTIONS_KEY )
 
 #define DEFENDER_REPORT_CONNECTIONS_KEY                       DEFENDER_REPORT_SELECT_KEY( "connections", "cs" )
-#define DEFENDER_REPORT_CONNECTIONS_KEY_LENGTH                STRING_LITERAL_LENGTH( DEFENDER_REPORT_CONNECTIONS_KEY )
+#define DEFENDER_REPORT_LENGTH_CONNECTIONS_KEY                STRING_LITERAL_LENGTH( DEFENDER_REPORT_CONNECTIONS_KEY )
 
 #define DEFENDER_REPORT_REMOTE_ADDR_KEY                       DEFENDER_REPORT_SELECT_KEY( "remote_addr", "rad" )
-#define DEFENDER_REPORT_REMOTE_ADDR_KEY_LENGTH                STRING_LITERAL_LENGTH( DEFENDER_REPORT_REMOTE_ADDR_KEY )
+#define DEFENDER_REPORT_LENGTH_REMOTE_ADDR_KEY                STRING_LITERAL_LENGTH( DEFENDER_REPORT_REMOTE_ADDR_KEY )
 
 #define DEFENDER_REPORT_LOCAL_PORT_KEY                        DEFENDER_REPORT_SELECT_KEY( "local_port", "lp" )
-#define DEFENDER_REPORT_LOCAL_PORT_KEY_LENGTH                 STRING_LITERAL_LENGTH( DEFENDER_REPORT_LOCAL_PORT_KEY )
+#define DEFENDER_REPORT_LENGTH_LOCAL_PORT_KEY                 STRING_LITERAL_LENGTH( DEFENDER_REPORT_LOCAL_PORT_KEY )
 
 #define DEFENDER_REPORT_LOCAL_INTERFACE_KEY                   DEFENDER_REPORT_SELECT_KEY( "local_interface", "li" )
-#define DEFENDER_REPORT_LOCAL_INTERFACE_KEY_LENGTH            STRING_LITERAL_LENGTH( DEFENDER_REPORT_LOCAL_INTERFACE_KEY )
+#define DEFENDER_REPORT_LENGTH_LOCAL_INTERFACE_KEY            STRING_LITERAL_LENGTH( DEFENDER_REPORT_LOCAL_INTERFACE_KEY )
 
 #define DEFENDER_REPORT_TOTAL_KEY                             DEFENDER_REPORT_SELECT_KEY( "total", "t" )
-#define DEFENDER_REPORT_TOTAL_KEY_LENGTH                      STRING_LITERAL_LENGTH( DEFENDER_REPORT_TOTAL_KEY )
+#define DEFENDER_REPORT_LENGTH_TOTAL_KEY                      STRING_LITERAL_LENGTH( DEFENDER_REPORT_TOTAL_KEY )
 
-#define DEFENDER_REPORT_LISTENING_TCP_PORTS_KEY               DEFENDER_REPORT_SELECT_KEY( "listening_tcp_ports", "tp" )
-#define DEFENDER_REPORT_LISTENING_TCP_PORTS_KEY_LENGTH        STRING_LITERAL_LENGTH( DEFENDER_REPORT_LISTENING_TCP_PORTS_KEY )
+#define DEFENDER_REPORT_TCP_LISTENING_PORTS_KEY               DEFENDER_REPORT_SELECT_KEY( "listening_tcp_ports", "tp" )
+#define DEFENDER_REPORT_LENGTH_TCP_LISTENING_PORTS_KEY        STRING_LITERAL_LENGTH( DEFENDER_REPORT_TCP_LISTENING_PORTS_KEY )
 
 #define DEFENDER_REPORT_PORTS_KEY                             DEFENDER_REPORT_SELECT_KEY( "ports", "pts" )
-#define DEFENDER_REPORT_PORTS_KEYLENGTH                       STRING_LITERAL_LENGTH( DEFENDER_REPORT_PORTS_KEY )
+#define DEFENDER_REPORT_LENGTH_PORTS_KEY                      STRING_LITERAL_LENGTH( DEFENDER_REPORT_PORTS_KEY )
 
 #define DEFENDER_REPORT_PORT_KEY                              DEFENDER_REPORT_SELECT_KEY( "port", "pt" )
-#define DEFENDER_REPORT_PORT_KEY_LENGTH                       STRING_LITERAL_LENGTH( DEFENDER_REPORT_PORT_KEY )
+#define DEFENDER_REPORT_LENGTH_PORT_KEY                       STRING_LITERAL_LENGTH( DEFENDER_REPORT_PORT_KEY )
 
 #define DEFENDER_REPORT_INTERFACE_KEY                         DEFENDER_REPORT_SELECT_KEY( "interface", "if" )
-#define DEFENDER_REPORT_INTERFACE_KEY_LENGTH                  STRING_LITERAL_LENGTH( DEFENDER_REPORT_INTERFACE_KEY )
+#define DEFENDER_REPORT_LENGTH_INTERFACE_KEY                  STRING_LITERAL_LENGTH( DEFENDER_REPORT_INTERFACE_KEY )
 
-#define DEFENDER_REPORT_LISTENING_UDP_PORTS_KEY               DEFENDER_REPORT_SELECT_KEY( "listening_udp_ports", "up" )
-#define DEFENDER_REPORT_LISTENING_UDP_PORTS_KEY_LENGTH        STRING_LITERAL_LENGTH( DEFENDER_REPORT_LISTENING_UDP_PORTS_KEY )
+#define DEFENDER_REPORT_UDP_LISTENING_PORTS_KEY               DEFENDER_REPORT_SELECT_KEY( "listening_udp_ports", "up" )
+#define DEFENDER_REPORT_LENGTH_UDP_LISTENING_PORTS_KEY        STRING_LITERAL_LENGTH( DEFENDER_REPORT_UDP_LISTENING_PORTS_KEY )
 
 #define DEFENDER_REPORT_NETWORK_STATS_KEY                     DEFENDER_REPORT_SELECT_KEY( "network_stats", "ns" )
-#define DEFENDER_REPORT_NETWORK_STATS_KEY_LENGTH              STRING_LITERAL_LENGTH( DEFENDER_REPORT_NETWORK_STATS_KEY )
+#define DEFENDER_REPORT_LENGTH_NETWORK_STATS_KEY              STRING_LITERAL_LENGTH( DEFENDER_REPORT_NETWORK_STATS_KEY )
 
 #define DEFENDER_REPORT_BYTES_IN_KEY                          DEFENDER_REPORT_SELECT_KEY( "bytes_in", "bi" )
-#define DEFENDER_REPORT_BYTES_IN_KEY_LENGTH                   STRING_LITERAL_LENGTH( DEFENDER_REPORT_BYTES_IN_KEY )
+#define DEFENDER_REPORT_LENGTH_BYTES_IN_KEY                   STRING_LITERAL_LENGTH( DEFENDER_REPORT_BYTES_IN_KEY )
 
 #define DEFENDER_REPORT_BYTES_OUT_KEY                         DEFENDER_REPORT_SELECT_KEY( "bytes_out", "bo" )
-#define DEFENDER_REPORT_BYTES_OUT_KEY_LENGTH                  STRING_LITERAL_LENGTH( DEFENDER_REPORT_BYTES_OUT_KEY )
+#define DEFENDER_REPORT_LENGTH_BYTES_OUT_KEY                  STRING_LITERAL_LENGTH( DEFENDER_REPORT_BYTES_OUT_KEY )
 
-#define DEFENDER_REPORT_PACKETS_IN_KEY                        DEFENDER_REPORT_SELECT_KEY( "packets_in", "pi" )
-#define DEFENDER_REPORT_PACKETS_IN_KEY_LENGTH                 STRING_LITERAL_LENGTH( DEFENDER_REPORT_PACKETS_IN_KEY )
+#define DEFENDER_REPORT_PKTS_IN_KEY                           DEFENDER_REPORT_SELECT_KEY( "packets_in", "pi" )
+#define DEFENDER_REPORT_LENGTH_PKTS_IN_KEY                    STRING_LITERAL_LENGTH( DEFENDER_REPORT_PKTS_IN_KEY )
 
-#define DEFENDER_REPORT_PACKETS_OUT_KEY                       DEFENDER_REPORT_SELECT_KEY( "packets_out", "po" )
-#define DEFENDER_REPORT_PACKETS_OUT_KEY_LENGTH                STRING_LITERAL_LENGTH( DEFENDER_REPORT_PACKETS_OUT_KEY )
+#define DEFENDER_REPORT_PKTS_OUT_KEY                          DEFENDER_REPORT_SELECT_KEY( "packets_out", "po" )
+#define DEFENDER_REPORT_LENGTH_PKS_OUT_KEY                    STRING_LITERAL_LENGTH( DEFENDER_REPORT_LENGTH_PKS_OUT_KEY )
 
 /*-----------------------------------------------------------*/
 
@@ -296,11 +296,11 @@ typedef enum DefenderTopic
  * #DefenderBufferTooSmall if the buffer cannot hold the full topic string.
  */
 DefenderStatus_t Defender_GetTopic( char * pBuffer,
-                                    uint32_t bufferLength,
+                                    uint16_t bufferLength,
                                     const char * pThingName,
                                     uint16_t thingNameLength,
                                     DefenderTopic_t api,
-                                    uint32_t * pOutLength );
+                                    uint16_t * pOutLength );
 
 /*-----------------------------------------------------------*/
 
