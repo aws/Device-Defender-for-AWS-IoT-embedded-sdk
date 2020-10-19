@@ -29,14 +29,16 @@
 void harness()
 {
     char * pTopicBuffer;
-    uint32_t topicBufferLength;
+    uint16_t topicBufferLength;
     char * pThingName;
     uint16_t thingNameLength;
     DefenderTopic_t api;
-    uint32_t * pOutLength;
+    uint16_t * pOutLength;
 
     __CPROVER_assume( topicBufferLength < CBMC_MAX_OBJECT_SIZE );
-    __CPROVER_assume( thingNameLength < CBMC_MAX_OBJECT_SIZE );
+    /* +1 is to ensure that we run the function for invalid thing name length as
+     * well. */
+    __CPROVER_assume( thingNameLength <= ( DEFENDER_THINGNAME_MAX_LENGTH + 1 ) );
 
     pTopicBuffer = malloc( topicBufferLength );
     pThingName = malloc( thingNameLength );

@@ -188,42 +188,42 @@ static void writeFormatAndSuffix( char * pBuffer,
     switch( api )
     {
         case DefenderJsonReportPublish:
-            ( void ) strncpy( pBuffer,
-                              DEFENDER_API_JSON_FORMAT,
-                              ( size_t ) DEFENDER_API_LENGTH_JSON_FORMAT );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) DEFENDER_API_JSON_FORMAT,
+                             ( size_t ) DEFENDER_API_LENGTH_JSON_FORMAT );
             break;
 
         case DefenderJsonReportAccepted:
-            ( void ) strncpy( pBuffer,
-                              DEFENDER_API_JSON_FORMAT,
-                              ( size_t ) DEFENDER_API_LENGTH_JSON_FORMAT );
-            ( void ) strncpy( &( pBuffer[ DEFENDER_API_LENGTH_JSON_FORMAT ] ),
-                              DEFENDER_API_ACCEPTED_SUFFIX,
-                              ( size_t ) DEFENDER_API_LENGTH_ACCEPTED_SUFFIX );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) DEFENDER_API_JSON_FORMAT,
+                             ( size_t ) DEFENDER_API_LENGTH_JSON_FORMAT );
+            ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_JSON_FORMAT ] ),
+                             ( const void * ) DEFENDER_API_ACCEPTED_SUFFIX,
+                             ( size_t ) DEFENDER_API_LENGTH_ACCEPTED_SUFFIX );
             break;
 
         case DefenderJsonReportRejected:
-            ( void ) strncpy( pBuffer,
-                              DEFENDER_API_JSON_FORMAT,
-                              DEFENDER_API_LENGTH_JSON_FORMAT );
-            ( void ) strncpy( &( pBuffer[ DEFENDER_API_LENGTH_JSON_FORMAT ] ),
-                              DEFENDER_API_REJECTED_SUFFIX,
-                              ( size_t ) DEFENDER_API_LENGTH_REJECTED_SUFFIX );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) DEFENDER_API_JSON_FORMAT,
+                             DEFENDER_API_LENGTH_JSON_FORMAT );
+            ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_JSON_FORMAT ] ),
+                             ( const void * ) DEFENDER_API_REJECTED_SUFFIX,
+                             ( size_t ) DEFENDER_API_LENGTH_REJECTED_SUFFIX );
             break;
 
         case DefenderCborReportPublish:
-            ( void ) strncpy( pBuffer,
-                              DEFENDER_API_CBOR_FORMAT,
-                              ( size_t ) DEFENDER_API_LENGTH_CBOR_FORMAT );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) DEFENDER_API_CBOR_FORMAT,
+                             ( size_t ) DEFENDER_API_LENGTH_CBOR_FORMAT );
             break;
 
         case DefenderCborReportAccepted:
-            ( void ) strncpy( pBuffer,
-                              DEFENDER_API_CBOR_FORMAT,
-                              DEFENDER_API_LENGTH_CBOR_FORMAT );
-            ( void ) strncpy( &( pBuffer[ DEFENDER_API_LENGTH_CBOR_FORMAT ] ),
-                              DEFENDER_API_ACCEPTED_SUFFIX,
-                              ( size_t ) DEFENDER_API_LENGTH_ACCEPTED_SUFFIX );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) DEFENDER_API_CBOR_FORMAT,
+                             DEFENDER_API_LENGTH_CBOR_FORMAT );
+            ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_CBOR_FORMAT ] ),
+                             ( const void * ) DEFENDER_API_ACCEPTED_SUFFIX,
+                             ( size_t ) DEFENDER_API_LENGTH_ACCEPTED_SUFFIX );
             break;
 
         /* The default is here just to silence compiler warnings in a way which
@@ -232,12 +232,12 @@ static void writeFormatAndSuffix( char * pBuffer,
          * DefenderCborReportRejected. */
         case DefenderCborReportRejected:
         default:
-            ( void ) strncpy( pBuffer,
-                              DEFENDER_API_CBOR_FORMAT,
-                              ( size_t ) DEFENDER_API_LENGTH_CBOR_FORMAT );
-            ( void ) strncpy( &( pBuffer[ DEFENDER_API_LENGTH_CBOR_FORMAT ] ),
-                              DEFENDER_API_REJECTED_SUFFIX,
-                              ( size_t ) DEFENDER_API_LENGTH_REJECTED_SUFFIX );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) DEFENDER_API_CBOR_FORMAT,
+                             ( size_t ) DEFENDER_API_LENGTH_CBOR_FORMAT );
+            ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_CBOR_FORMAT ] ),
+                             ( const void * ) DEFENDER_API_REJECTED_SUFFIX,
+                             ( size_t ) DEFENDER_API_LENGTH_REJECTED_SUFFIX );
             break;
     }
 }
@@ -419,21 +419,21 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
          * write the topic string into. */
 
         /* Write prefix first. */
-        ( void ) strncpy( &( pBuffer[ offset ] ),
-                          DEFENDER_API_PREFIX,
-                          ( size_t ) DEFENDER_API_LENGTH_PREFIX );
+        ( void ) memcpy( ( void * ) &( pBuffer[ offset ] ),
+                         ( const void * ) DEFENDER_API_PREFIX,
+                         ( size_t ) DEFENDER_API_LENGTH_PREFIX );
         offset += DEFENDER_API_LENGTH_PREFIX;
 
         /* Write thing name next. */
-        ( void ) strncpy( &( pBuffer[ offset ] ),
-                          pThingName,
-                          ( size_t ) thingNameLength );
+        ( void ) memcpy( ( void * ) &( pBuffer[ offset ] ),
+                         ( const void * ) pThingName,
+                         ( size_t ) thingNameLength );
         offset += thingNameLength;
 
         /* Write bridge next. */
-        ( void ) strncpy( &( pBuffer[ offset ] ),
-                          DEFENDER_API_BRIDGE,
-                          ( size_t ) DEFENDER_API_LENGTH_BRIDGE );
+        ( void ) memcpy( ( void * ) &( pBuffer[ offset ] ),
+                         ( const void * ) DEFENDER_API_BRIDGE,
+                         ( size_t ) DEFENDER_API_LENGTH_BRIDGE );
         offset += DEFENDER_API_LENGTH_BRIDGE;
 
         /* Write report format and suffix. */
