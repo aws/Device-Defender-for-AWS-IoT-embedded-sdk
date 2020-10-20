@@ -182,6 +182,13 @@ static uint16_t getTopicLength( uint16_t thingNameLength,
 static void writeFormatAndSuffix( char * pBuffer,
                                   DefenderTopic_t api )
 {
+    /* The following variables are to address MISRA Rule 7.4 violation of
+     * passing const char * for const void * param of memcpy. */
+    const char * pDefenderApiJsonFormat = DEFENDER_API_JSON_FORMAT;
+    const char * pDefenderApiCborFormat = DEFENDER_API_CBOR_FORMAT;
+    const char * pDefenderApiAcceptedSuffix = DEFENDER_API_ACCEPTED_SUFFIX;
+    const char * pDefenderApiRejectedSuffix = DEFENDER_API_REJECTED_SUFFIX;
+
     assert( pBuffer != NULL );
     assert( ( api > DefenderInvalidTopic ) && ( api < DefenderMaxTopic ) );
 
@@ -189,40 +196,40 @@ static void writeFormatAndSuffix( char * pBuffer,
     {
         case DefenderJsonReportPublish:
             ( void ) memcpy( ( void * ) pBuffer,
-                             ( const void * ) DEFENDER_API_JSON_FORMAT,
+                             ( const void * ) pDefenderApiJsonFormat,
                              ( size_t ) DEFENDER_API_LENGTH_JSON_FORMAT );
             break;
 
         case DefenderJsonReportAccepted:
             ( void ) memcpy( ( void * ) pBuffer,
-                             ( const void * ) DEFENDER_API_JSON_FORMAT,
+                             ( const void * ) pDefenderApiJsonFormat,
                              ( size_t ) DEFENDER_API_LENGTH_JSON_FORMAT );
             ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_JSON_FORMAT ] ),
-                             ( const void * ) DEFENDER_API_ACCEPTED_SUFFIX,
+                             ( const void * ) pDefenderApiAcceptedSuffix,
                              ( size_t ) DEFENDER_API_LENGTH_ACCEPTED_SUFFIX );
             break;
 
         case DefenderJsonReportRejected:
             ( void ) memcpy( ( void * ) pBuffer,
-                             ( const void * ) DEFENDER_API_JSON_FORMAT,
+                             ( const void * ) pDefenderApiJsonFormat,
                              DEFENDER_API_LENGTH_JSON_FORMAT );
             ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_JSON_FORMAT ] ),
-                             ( const void * ) DEFENDER_API_REJECTED_SUFFIX,
+                             ( const void * ) pDefenderApiRejectedSuffix,
                              ( size_t ) DEFENDER_API_LENGTH_REJECTED_SUFFIX );
             break;
 
         case DefenderCborReportPublish:
             ( void ) memcpy( ( void * ) pBuffer,
-                             ( const void * ) DEFENDER_API_CBOR_FORMAT,
+                             ( const void * ) pDefenderApiCborFormat,
                              ( size_t ) DEFENDER_API_LENGTH_CBOR_FORMAT );
             break;
 
         case DefenderCborReportAccepted:
             ( void ) memcpy( ( void * ) pBuffer,
-                             ( const void * ) DEFENDER_API_CBOR_FORMAT,
+                             ( const void * ) pDefenderApiCborFormat,
                              DEFENDER_API_LENGTH_CBOR_FORMAT );
             ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_CBOR_FORMAT ] ),
-                             ( const void * ) DEFENDER_API_ACCEPTED_SUFFIX,
+                             ( const void * ) pDefenderApiAcceptedSuffix,
                              ( size_t ) DEFENDER_API_LENGTH_ACCEPTED_SUFFIX );
             break;
 
@@ -233,10 +240,10 @@ static void writeFormatAndSuffix( char * pBuffer,
         case DefenderCborReportRejected:
         default:
             ( void ) memcpy( ( void * ) pBuffer,
-                             ( const void * ) DEFENDER_API_CBOR_FORMAT,
+                             ( const void * ) pDefenderApiCborFormat,
                              ( size_t ) DEFENDER_API_LENGTH_CBOR_FORMAT );
             ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_CBOR_FORMAT ] ),
-                             ( const void * ) DEFENDER_API_REJECTED_SUFFIX,
+                             ( const void * ) pDefenderApiRejectedSuffix,
                              ( size_t ) DEFENDER_API_LENGTH_REJECTED_SUFFIX );
             break;
     }
@@ -380,6 +387,11 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
     DefenderStatus_t ret = DefenderSuccess;
     uint16_t topicLength = 0U, offset = 0U;
 
+    /* The following variables are to address MISRA Rule 7.4 violation of
+     * passing const char * for const void * param of memcpy. */
+    const char * pDefenderApiPrefix = DEFENDER_API_PREFIX;
+    const char * pDefenderApiBridge = DEFENDER_API_BRIDGE;
+
     if( ( pBuffer == NULL ) ||
         ( pThingName == NULL ) ||
         ( thingNameLength == 0U ) || ( thingNameLength > DEFENDER_THINGNAME_MAX_LENGTH ) ||
@@ -420,7 +432,7 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
 
         /* Write prefix first. */
         ( void ) memcpy( ( void * ) &( pBuffer[ offset ] ),
-                         ( const void * ) DEFENDER_API_PREFIX,
+                         ( const void * ) pDefenderApiPrefix,
                          ( size_t ) DEFENDER_API_LENGTH_PREFIX );
         offset += DEFENDER_API_LENGTH_PREFIX;
 
@@ -432,7 +444,7 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
 
         /* Write bridge next. */
         ( void ) memcpy( ( void * ) &( pBuffer[ offset ] ),
-                         ( const void * ) DEFENDER_API_BRIDGE,
+                         ( const void * ) pDefenderApiBridge,
                          ( size_t ) DEFENDER_API_LENGTH_BRIDGE );
         offset += DEFENDER_API_LENGTH_BRIDGE;
 
