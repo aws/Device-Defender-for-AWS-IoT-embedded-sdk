@@ -12,17 +12,17 @@ PROOF_UID = Defender_MatchTopic
 # buffer holding the topic string can be proven within a reasonable bound. It
 # adds no value to the proof to input the largest possible topic string accepted
 # by AWS (64KB).
-TOPIC_STRING_LENGTH_MAX=100
+TOPIC_STRING_LENGTH_MAX=200
 
 DEFINES += -DTOPIC_STRING_LENGTH_MAX=$(TOPIC_STRING_LENGTH_MAX)
 INCLUDES +=
 
 REMOVE_FUNCTION_BODY +=
 
-# The longest memcmp is in matchBridge function which matches DEFENDER_API_BRIDGE
+# The longest strncmp is in matchBridge function which matches DEFENDER_API_BRIDGE
 # length of which is 19. We unwind one more time than the bridge length.
 DEFENDER_API_BRIDGE_LENGTH=20
-UNWINDSET += memcmp.0:$(DEFENDER_API_BRIDGE_LENGTH)
+UNWINDSET += strncmp.0:$(DEFENDER_API_BRIDGE_LENGTH)
 
 # Enough to unwind the extractThingNameLength loop TOPIC_STRING_LENGTH_MAX times
 # as thingname in the topic string can not be longer than the topic string

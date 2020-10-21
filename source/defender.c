@@ -40,7 +40,7 @@
  *
  * @return The topic length for the given defender API.
  */
-static uint32_t getTopicLength( uint16_t thingNameLength,
+static uint16_t getTopicLength( uint16_t thingNameLength,
                                 DefenderTopic_t api );
 
 /**
@@ -135,74 +135,34 @@ static DefenderStatus_t matchApi( const char * pRemainingTopic,
                                   DefenderTopic_t * pOutApi );
 /*-----------------------------------------------------------*/
 
-/**
- * @brief Table of defender APIs.
- */
-static const DefenderTopic_t defenderApi[] =
-{
-    DefenderJsonReportPublish,
-    DefenderJsonReportAccepted,
-    DefenderJsonReportRejected,
-    DefenderCborReportPublish,
-    DefenderCborReportAccepted,
-    DefenderCborReportRejected,
-};
-
-/**
- * @brief Table of topic API strings in the same order as the above defenderApi table.
- */
-static const char * const defenderApiTopic[] =
-{
-    DEFENDER_API_JSON_REPORT_FORMAT,
-    DEFENDER_API_JSON_REPORT_FORMAT DEFENDER_API_ACCEPTED_SUFFIX,
-    DEFENDER_API_JSON_REPORT_FORMAT DEFENDER_API_REJECTED_SUFFIX,
-    DEFENDER_API_CBOR_REPORT_FORMAT,
-    DEFENDER_API_CBOR_REPORT_FORMAT DEFENDER_API_ACCEPTED_SUFFIX,
-    DEFENDER_API_CBOR_REPORT_FORMAT DEFENDER_API_REJECTED_SUFFIX,
-};
-
-/**
- * @brief Table of topic API string lengths in the same order as the above defenderApi table.
- */
-static const uint16_t defenderApiTopicLength[] =
-{
-    DEFENDER_API_JSON_REPORT_FORMAT_LENGTH,
-    DEFENDER_API_JSON_REPORT_FORMAT_LENGTH + DEFENDER_API_ACCEPTED_SUFFIX_LENGTH,
-    DEFENDER_API_JSON_REPORT_FORMAT_LENGTH + DEFENDER_API_REJECTED_SUFFIX_LENGTH,
-    DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH,
-    DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH + DEFENDER_API_ACCEPTED_SUFFIX_LENGTH,
-    DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH + DEFENDER_API_REJECTED_SUFFIX_LENGTH,
-};
-/*-----------------------------------------------------------*/
-
-static uint32_t getTopicLength( uint16_t thingNameLength,
+static uint16_t getTopicLength( uint16_t thingNameLength,
                                 DefenderTopic_t api )
 {
-    uint32_t topicLength = 0;
+    uint16_t topicLength = 0U;
 
-    assert( ( thingNameLength != 0 ) && thingNameLength <= DEFENDER_THINGNAME_MAX_LENGTH );
+    assert( ( thingNameLength != 0U ) && ( thingNameLength <= DEFENDER_THINGNAME_MAX_LENGTH ) );
     assert( ( api > DefenderInvalidTopic ) && ( api < DefenderMaxTopic ) );
 
     switch( api )
     {
         case DefenderJsonReportPublish:
-            topicLength = DEFENDER_API_JSON_REPORT_PUBLISH_LENGTH( thingNameLength );
+            topicLength = DEFENDER_API_LENGTH_JSON_PUBLISH( thingNameLength );
             break;
 
         case DefenderJsonReportAccepted:
-            topicLength = DEFENDER_API_JSON_REPORT_ACCEPTED_LENGTH( thingNameLength );
+            topicLength = DEFENDER_API_LENGTH_JSON_ACCEPTED( thingNameLength );
             break;
 
         case DefenderJsonReportRejected:
-            topicLength = DEFENDER_API_JSON_REPORT_REJECTED_LENGTH( thingNameLength );
+            topicLength = DEFENDER_API_LENGTH_JSON_REJECTED( thingNameLength );
             break;
 
         case DefenderCborReportPublish:
-            topicLength = DEFENDER_API_CBOR_REPORT_PUBLISH_LENGTH( thingNameLength );
+            topicLength = DEFENDER_API_LENGTH_CBOR_PUBLISH( thingNameLength );
             break;
 
         case DefenderCborReportAccepted:
-            topicLength = DEFENDER_API_CBOR_REPORT_ACCEPTED_LENGTH( thingNameLength );
+            topicLength = DEFENDER_API_LENGTH_CBOR_ACCEPTED( thingNameLength );
             break;
 
         /* The default is here just to silence compiler warnings in a way which
@@ -211,7 +171,7 @@ static uint32_t getTopicLength( uint16_t thingNameLength,
          * DefenderCborReportRejected. */
         case DefenderCborReportRejected:
         default:
-            topicLength = DEFENDER_API_CBOR_REPORT_REJECTED_LENGTH( thingNameLength );
+            topicLength = DEFENDER_API_LENGTH_CBOR_REJECTED( thingNameLength );
             break;
     }
 
@@ -222,48 +182,55 @@ static uint32_t getTopicLength( uint16_t thingNameLength,
 static void writeFormatAndSuffix( char * pBuffer,
                                   DefenderTopic_t api )
 {
+    /* The following variables are to address MISRA Rule 7.4 violation of
+     * passing const char * for const void * param of memcpy. */
+    const char * pDefenderApiJsonFormat = DEFENDER_API_JSON_FORMAT;
+    const char * pDefenderApiCborFormat = DEFENDER_API_CBOR_FORMAT;
+    const char * pDefenderApiAcceptedSuffix = DEFENDER_API_ACCEPTED_SUFFIX;
+    const char * pDefenderApiRejectedSuffix = DEFENDER_API_REJECTED_SUFFIX;
+
     assert( pBuffer != NULL );
     assert( ( api > DefenderInvalidTopic ) && ( api < DefenderMaxTopic ) );
 
     switch( api )
     {
         case DefenderJsonReportPublish:
-            memcpy( pBuffer,
-                    DEFENDER_API_JSON_REPORT_FORMAT,
-                    DEFENDER_API_JSON_REPORT_FORMAT_LENGTH );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) pDefenderApiJsonFormat,
+                             ( size_t ) DEFENDER_API_LENGTH_JSON_FORMAT );
             break;
 
         case DefenderJsonReportAccepted:
-            memcpy( pBuffer,
-                    DEFENDER_API_JSON_REPORT_FORMAT,
-                    DEFENDER_API_JSON_REPORT_FORMAT_LENGTH );
-            memcpy( &( pBuffer[ DEFENDER_API_JSON_REPORT_FORMAT_LENGTH ] ),
-                    DEFENDER_API_ACCEPTED_SUFFIX,
-                    DEFENDER_API_ACCEPTED_SUFFIX_LENGTH );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) pDefenderApiJsonFormat,
+                             ( size_t ) DEFENDER_API_LENGTH_JSON_FORMAT );
+            ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_JSON_FORMAT ] ),
+                             ( const void * ) pDefenderApiAcceptedSuffix,
+                             ( size_t ) DEFENDER_API_LENGTH_ACCEPTED_SUFFIX );
             break;
 
         case DefenderJsonReportRejected:
-            memcpy( pBuffer,
-                    DEFENDER_API_JSON_REPORT_FORMAT,
-                    DEFENDER_API_JSON_REPORT_FORMAT_LENGTH );
-            memcpy( &( pBuffer[ DEFENDER_API_JSON_REPORT_FORMAT_LENGTH ] ),
-                    DEFENDER_API_REJECTED_SUFFIX,
-                    DEFENDER_API_REJECTED_SUFFIX_LENGTH );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) pDefenderApiJsonFormat,
+                             DEFENDER_API_LENGTH_JSON_FORMAT );
+            ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_JSON_FORMAT ] ),
+                             ( const void * ) pDefenderApiRejectedSuffix,
+                             ( size_t ) DEFENDER_API_LENGTH_REJECTED_SUFFIX );
             break;
 
         case DefenderCborReportPublish:
-            memcpy( pBuffer,
-                    DEFENDER_API_CBOR_REPORT_FORMAT,
-                    DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) pDefenderApiCborFormat,
+                             ( size_t ) DEFENDER_API_LENGTH_CBOR_FORMAT );
             break;
 
         case DefenderCborReportAccepted:
-            memcpy( pBuffer,
-                    DEFENDER_API_CBOR_REPORT_FORMAT,
-                    DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH );
-            memcpy( &( pBuffer[ DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH ] ),
-                    DEFENDER_API_ACCEPTED_SUFFIX,
-                    DEFENDER_API_ACCEPTED_SUFFIX_LENGTH );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) pDefenderApiCborFormat,
+                             DEFENDER_API_LENGTH_CBOR_FORMAT );
+            ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_CBOR_FORMAT ] ),
+                             ( const void * ) pDefenderApiAcceptedSuffix,
+                             ( size_t ) DEFENDER_API_LENGTH_ACCEPTED_SUFFIX );
             break;
 
         /* The default is here just to silence compiler warnings in a way which
@@ -272,12 +239,12 @@ static void writeFormatAndSuffix( char * pBuffer,
          * DefenderCborReportRejected. */
         case DefenderCborReportRejected:
         default:
-            memcpy( pBuffer,
-                    DEFENDER_API_CBOR_REPORT_FORMAT,
-                    DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH );
-            memcpy( &( pBuffer[ DEFENDER_API_CBOR_REPORT_FORMAT_LENGTH ] ),
-                    DEFENDER_API_REJECTED_SUFFIX,
-                    DEFENDER_API_REJECTED_SUFFIX_LENGTH );
+            ( void ) memcpy( ( void * ) pBuffer,
+                             ( const void * ) pDefenderApiCborFormat,
+                             ( size_t ) DEFENDER_API_LENGTH_CBOR_FORMAT );
+            ( void ) memcpy( ( void * ) &( pBuffer[ DEFENDER_API_LENGTH_CBOR_FORMAT ] ),
+                             ( const void * ) pDefenderApiRejectedSuffix,
+                             ( size_t ) DEFENDER_API_LENGTH_REJECTED_SUFFIX );
             break;
     }
 }
@@ -290,9 +257,11 @@ static DefenderStatus_t matchPrefix( const char * pRemainingTopic,
 
     assert( pRemainingTopic != NULL );
 
-    if( remainingTopicLength >= DEFENDER_API_PREFIX_LENGTH )
+    if( remainingTopicLength >= DEFENDER_API_LENGTH_PREFIX )
     {
-        if( memcmp( pRemainingTopic, DEFENDER_API_PREFIX, DEFENDER_API_PREFIX_LENGTH ) == 0 )
+        if( strncmp( pRemainingTopic,
+                     DEFENDER_API_PREFIX,
+                     ( size_t ) DEFENDER_API_LENGTH_PREFIX ) == 0 )
         {
             ret = DefenderSuccess;
         }
@@ -307,13 +276,13 @@ static DefenderStatus_t extractThingNameLength( const char * pRemainingTopic,
                                                 uint16_t * pOutThingNameLength )
 {
     DefenderStatus_t ret = DefenderNoMatch;
-    uint16_t i = 0;
+    uint16_t i = 0U;
 
     assert( pRemainingTopic != NULL );
     assert( pOutThingNameLength != NULL );
 
     /* Find the first forward slash. It marks the end of the thing name. */
-    for( i = 0; i < remainingTopicLength; i++ )
+    for( i = 0U; i < remainingTopicLength; i++ )
     {
         if( pRemainingTopic[ i ] == '/' )
         {
@@ -339,9 +308,11 @@ static DefenderStatus_t matchBridge( const char * pRemainingTopic,
 
     assert( pRemainingTopic != NULL );
 
-    if( remainingTopicLength >= DEFENDER_API_BRIDGE_LENGTH )
+    if( remainingTopicLength >= DEFENDER_API_LENGTH_BRIDGE )
     {
-        if( memcmp( pRemainingTopic, DEFENDER_API_BRIDGE, DEFENDER_API_BRIDGE_LENGTH ) == 0 )
+        if( strncmp( pRemainingTopic,
+                     DEFENDER_API_BRIDGE,
+                     ( size_t ) DEFENDER_API_LENGTH_BRIDGE ) == 0 )
         {
             ret = DefenderSuccess;
         }
@@ -356,12 +327,44 @@ static DefenderStatus_t matchApi( const char * pRemainingTopic,
                                   DefenderTopic_t * pOutApi )
 {
     DefenderStatus_t ret = DefenderNoMatch;
-    uint16_t i = 0;
+    uint16_t i = 0U;
+    /* Table of defender APIs. */
+    static const DefenderTopic_t defenderApi[] =
+    {
+        DefenderJsonReportPublish,
+        DefenderJsonReportAccepted,
+        DefenderJsonReportRejected,
+        DefenderCborReportPublish,
+        DefenderCborReportAccepted,
+        DefenderCborReportRejected,
+    };
+    /* Table of topic API strings in the same order as the above defenderApi table. */
+    static const char * const defenderApiTopic[] =
+    {
+        DEFENDER_API_JSON_FORMAT,
+        DEFENDER_API_JSON_FORMAT DEFENDER_API_ACCEPTED_SUFFIX,
+        DEFENDER_API_JSON_FORMAT DEFENDER_API_REJECTED_SUFFIX,
+        DEFENDER_API_CBOR_FORMAT,
+        DEFENDER_API_CBOR_FORMAT DEFENDER_API_ACCEPTED_SUFFIX,
+        DEFENDER_API_CBOR_FORMAT DEFENDER_API_REJECTED_SUFFIX,
+    };
+    /* Table of topic API string lengths in the same order as the above defenderApi table. */
+    static const uint16_t defenderApiTopicLength[] =
+    {
+        DEFENDER_API_LENGTH_JSON_FORMAT,
+        DEFENDER_API_LENGTH_JSON_FORMAT + DEFENDER_API_LENGTH_ACCEPTED_SUFFIX,
+        DEFENDER_API_LENGTH_JSON_FORMAT + DEFENDER_API_LENGTH_REJECTED_SUFFIX,
+        DEFENDER_API_LENGTH_CBOR_FORMAT,
+        DEFENDER_API_LENGTH_CBOR_FORMAT + DEFENDER_API_LENGTH_ACCEPTED_SUFFIX,
+        DEFENDER_API_LENGTH_CBOR_FORMAT + DEFENDER_API_LENGTH_REJECTED_SUFFIX,
+    };
 
-    for( i = 0; i < sizeof( defenderApi ) / sizeof( defenderApi[ 0 ] ); i++ )
+    for( i = 0U; i < sizeof( defenderApi ) / sizeof( defenderApi[ 0 ] ); i++ )
     {
         if( ( remainingTopicLength == defenderApiTopicLength[ i ] ) &&
-            ( memcmp( pRemainingTopic, defenderApiTopic[ i ], defenderApiTopicLength[ i ] ) == 0 ) )
+            ( strncmp( pRemainingTopic,
+                       defenderApiTopic[ i ],
+                       ( size_t ) defenderApiTopicLength[ i ] ) == 0 ) )
         {
             *pOutApi = defenderApi[ i ];
             ret = DefenderSuccess;
@@ -375,14 +378,19 @@ static DefenderStatus_t matchApi( const char * pRemainingTopic,
 /*-----------------------------------------------------------*/
 
 DefenderStatus_t Defender_GetTopic( char * pBuffer,
-                                    uint32_t bufferLength,
+                                    uint16_t bufferLength,
                                     const char * pThingName,
                                     uint16_t thingNameLength,
                                     DefenderTopic_t api,
-                                    uint32_t * pOutLength )
+                                    uint16_t * pOutLength )
 {
     DefenderStatus_t ret = DefenderSuccess;
-    uint32_t topicLength = 0, offset = 0;
+    uint16_t topicLength = 0U, offset = 0U;
+
+    /* The following variables are to address MISRA Rule 7.4 violation of
+     * passing const char * for const void * param of memcpy. */
+    const char * pDefenderApiPrefix = DEFENDER_API_PREFIX;
+    const char * pDefenderApiBridge = DEFENDER_API_BRIDGE;
 
     if( ( pBuffer == NULL ) ||
         ( pThingName == NULL ) ||
@@ -423,16 +431,22 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
          * write the topic string into. */
 
         /* Write prefix first. */
-        memcpy( &( pBuffer[ offset ] ), DEFENDER_API_PREFIX, DEFENDER_API_PREFIX_LENGTH );
-        offset += DEFENDER_API_PREFIX_LENGTH;
+        ( void ) memcpy( ( void * ) &( pBuffer[ offset ] ),
+                         ( const void * ) pDefenderApiPrefix,
+                         ( size_t ) DEFENDER_API_LENGTH_PREFIX );
+        offset += DEFENDER_API_LENGTH_PREFIX;
 
         /* Write thing name next. */
-        memcpy( &( pBuffer[ offset ] ), pThingName, thingNameLength );
+        ( void ) memcpy( ( void * ) &( pBuffer[ offset ] ),
+                         ( const void * ) pThingName,
+                         ( size_t ) thingNameLength );
         offset += thingNameLength;
 
         /* Write bridge next. */
-        memcpy( &( pBuffer[ offset ] ), DEFENDER_API_BRIDGE, DEFENDER_API_BRIDGE_LENGTH );
-        offset += DEFENDER_API_BRIDGE_LENGTH;
+        ( void ) memcpy( ( void * ) &( pBuffer[ offset ] ),
+                         ( const void * ) pDefenderApiBridge,
+                         ( size_t ) DEFENDER_API_LENGTH_BRIDGE );
+        offset += DEFENDER_API_LENGTH_BRIDGE;
 
         /* Write report format and suffix. */
         writeFormatAndSuffix( &( pBuffer[ offset ] ), api );
@@ -451,7 +465,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
                                       uint16_t * pOutThingNameLength )
 {
     DefenderStatus_t ret = DefenderSuccess;
-    uint16_t remainingTopicLength = 0, consumedTopicLength = 0, thingNameLength = 0;
+    uint16_t remainingTopicLength = 0U, consumedTopicLength = 0U, thingNameLength = 0U;
 
     if( ( pTopic == NULL ) || ( pOutApi == NULL ) )
     {
@@ -472,8 +486,8 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
 
         if( ret == DefenderSuccess )
         {
-            remainingTopicLength -= DEFENDER_API_PREFIX_LENGTH;
-            consumedTopicLength += DEFENDER_API_PREFIX_LENGTH;
+            remainingTopicLength -= DEFENDER_API_LENGTH_PREFIX;
+            consumedTopicLength += DEFENDER_API_LENGTH_PREFIX;
         }
         else
         {
@@ -505,8 +519,8 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
 
         if( ret == DefenderSuccess )
         {
-            remainingTopicLength -= DEFENDER_API_BRIDGE_LENGTH;
-            consumedTopicLength += DEFENDER_API_BRIDGE_LENGTH;
+            remainingTopicLength -= DEFENDER_API_LENGTH_BRIDGE;
+            consumedTopicLength += DEFENDER_API_LENGTH_BRIDGE;
         }
         else
         {
@@ -534,7 +548,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
         if( ppOutThingName != NULL )
         {
             /* Thing name comes after the defender prefix. */
-            *ppOutThingName = &( pTopic[ DEFENDER_API_PREFIX_LENGTH ] );
+            *ppOutThingName = &( pTopic[ DEFENDER_API_LENGTH_PREFIX ] );
         }
 
         if( pOutThingNameLength != NULL )

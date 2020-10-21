@@ -34,27 +34,27 @@
 #include "defender.h"
 
 /* Thing name used in the tests. */
-#define TEST_THING_NAME                           "TestThing"
-#define TEST_THING_NAME_LENGTH                    STRING_LITERAL_LENGTH( TEST_THING_NAME )
+#define TEST_THING_NAME                          "TestThing"
+#define TEST_THING_NAME_LENGTH                   STRING_LITERAL_LENGTH( TEST_THING_NAME )
 
 /* Topics used in the tests. */
-#define TEST_JSON_REPORT_PUBLISH_TOPIC            "$aws/things/" TEST_THING_NAME "/defender/metrics/json"
-#define TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH     STRING_LITERAL_LENGTH( TEST_JSON_REPORT_PUBLISH_TOPIC )
+#define TEST_JSON_PUBLISH_TOPIC                  "$aws/things/" TEST_THING_NAME "/defender/metrics/json"
+#define TEST_JSON_PUBLISH_TOPIC_LENGTH           STRING_LITERAL_LENGTH( TEST_JSON_PUBLISH_TOPIC )
 
-#define TEST_JSON_REPORT_ACCEPTED_TOPIC           "$aws/things/" TEST_THING_NAME "/defender/metrics/json/accepted"
-#define TEST_JSON_REPORT_ACCEPTED_TOPIC_LENGTH    STRING_LITERAL_LENGTH( TEST_JSON_REPORT_ACCEPTED_TOPIC )
+#define TEST_JSON_ACCEPTED_TOPIC                 "$aws/things/" TEST_THING_NAME "/defender/metrics/json/accepted"
+#define TEST_JSON_ACCEPTED_TOPIC_LENGTH          STRING_LITERAL_LENGTH( TEST_JSON_ACCEPTED_TOPIC )
 
-#define TEST_JSON_REPORT_REJECTED_TOPIC           "$aws/things/" TEST_THING_NAME "/defender/metrics/json/rejected"
-#define TEST_JSON_REPORT_REJECTED_TOPIC_LENGTH    STRING_LITERAL_LENGTH( TEST_JSON_REPORT_REJECTED_TOPIC )
+#define TEST_JSON_REJECTED_TOPIC                 "$aws/things/" TEST_THING_NAME "/defender/metrics/json/rejected"
+#define TEST_JSON_REJECTED_TOPIC_LENGTH          STRING_LITERAL_LENGTH( TEST_JSON_REJECTED_TOPIC )
 
-#define TEST_CBOR_REPORT_PUBLISH_TOPIC            "$aws/things/" TEST_THING_NAME "/defender/metrics/cbor"
-#define TEST_CBOR_REPORT_PUBLISH_TOPIC_LENGTH     STRING_LITERAL_LENGTH( TEST_CBOR_REPORT_PUBLISH_TOPIC )
+#define TEST_CBOR_PUBLISH_TOPIC                  "$aws/things/" TEST_THING_NAME "/defender/metrics/cbor"
+#define TEST_CBOR_PUBLISH_TOPIC_LENGTH           STRING_LITERAL_LENGTH( TEST_CBOR_PUBLISH_TOPIC )
 
-#define TEST_CBOR_REPORT_ACCEPTED_TOPIC           "$aws/things/" TEST_THING_NAME "/defender/metrics/cbor/accepted"
-#define TEST_CBOR_REPORT_ACCEPTED_TOPIC_LENGTH    STRING_LITERAL_LENGTH( TEST_CBOR_REPORT_ACCEPTED_TOPIC )
+#define TEST_CBOR_ACCEPTED_TOPIC                 "$aws/things/" TEST_THING_NAME "/defender/metrics/cbor/accepted"
+#define TEST_CBOR_ACCEPTED_TOPIC_LENGTH          STRING_LITERAL_LENGTH( TEST_CBOR_ACCEPTED_TOPIC )
 
-#define TEST_CBOR_REPORT_REJECTED_TOPIC           "$aws/things/" TEST_THING_NAME "/defender/metrics/cbor/rejected"
-#define TEST_CBOR_REPORT_REJECTED_TOPIC_LENGTH    STRING_LITERAL_LENGTH( TEST_CBOR_REPORT_REJECTED_TOPIC )
+#define TEST_CBOR_REJECTED_TOPIC                 "$aws/things/" TEST_THING_NAME "/defender/metrics/cbor/rejected"
+#define TEST_CBOR_REJECTED_TOPIC_LENGTH          STRING_LITERAL_LENGTH( TEST_CBOR_REJECTED_TOPIC )
 
 /* Length of the topic buffer used in tests. Guard buffers are placed before and
  * after the topic buffer to verify that defender APIs do not write out of
@@ -67,9 +67,9 @@
  * Both guard buffers are filled with a known pattern before each test and are
  * verified to reamain unchanged after each test.
  */
-#define TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH     32
-#define TEST_TOPIC_BUFFER_WRITABLE_LENGTH         256
-#define TEST_TOPIC_BUFFER_SUFFIX_GUARD_LENGTH     32
+#define TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH    32
+#define TEST_TOPIC_BUFFER_WRITABLE_LENGTH        256
+#define TEST_TOPIC_BUFFER_SUFFIX_GUARD_LENGTH    32
 #define TEST_TOPIC_BUFFER_TOTAL_LENGTH        \
     ( TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH + \
       TEST_TOPIC_BUFFER_WRITABLE_LENGTH +     \
@@ -121,29 +121,29 @@ int suiteTearDown( int numFailures )
  */
 void test_Defender_MacrosString( void )
 {
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_REPORT_PUBLISH_TOPIC,
-                                  DEFENDER_API_JSON_REPORT_PUBLISH( TEST_THING_NAME ),
-                                  TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH );
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_PUBLISH_TOPIC,
+                                  DEFENDER_API_JSON_PUBLISH( TEST_THING_NAME ),
+                                  TEST_JSON_PUBLISH_TOPIC_LENGTH );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_REPORT_ACCEPTED_TOPIC,
-                                  DEFENDER_API_JSON_REPORT_ACCEPTED( TEST_THING_NAME ),
-                                  TEST_JSON_REPORT_ACCEPTED_TOPIC_LENGTH );
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_ACCEPTED_TOPIC,
+                                  DEFENDER_API_JSON_ACCEPTED( TEST_THING_NAME ),
+                                  TEST_JSON_ACCEPTED_TOPIC_LENGTH );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_REPORT_REJECTED_TOPIC,
-                                  DEFENDER_API_JSON_REPORT_REJECTED( TEST_THING_NAME ),
-                                  TEST_JSON_REPORT_REJECTED_TOPIC_LENGTH );
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_REJECTED_TOPIC,
+                                  DEFENDER_API_JSON_REJECTED( TEST_THING_NAME ),
+                                  TEST_JSON_REJECTED_TOPIC_LENGTH );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_REPORT_PUBLISH_TOPIC,
-                                  DEFENDER_API_CBOR_REPORT_PUBLISH( TEST_THING_NAME ),
-                                  TEST_CBOR_REPORT_PUBLISH_TOPIC_LENGTH );
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_PUBLISH_TOPIC,
+                                  DEFENDER_API_CBOR_PUBLISH( TEST_THING_NAME ),
+                                  TEST_CBOR_PUBLISH_TOPIC_LENGTH );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_REPORT_ACCEPTED_TOPIC,
-                                  DEFENDER_API_CBOR_REPORT_ACCEPTED( TEST_THING_NAME ),
-                                  TEST_CBOR_REPORT_ACCEPTED_TOPIC_LENGTH );
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_ACCEPTED_TOPIC,
+                                  DEFENDER_API_CBOR_ACCEPTED( TEST_THING_NAME ),
+                                  TEST_CBOR_ACCEPTED_TOPIC_LENGTH );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_REPORT_REJECTED_TOPIC,
-                                  DEFENDER_API_CBOR_REPORT_REJECTED( TEST_THING_NAME ),
-                                  TEST_CBOR_REPORT_REJECTED_TOPIC_LENGTH );
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_REJECTED_TOPIC,
+                                  DEFENDER_API_CBOR_REJECTED( TEST_THING_NAME ),
+                                  TEST_CBOR_REJECTED_TOPIC_LENGTH );
 }
 /*-----------------------------------------------------------*/
 
@@ -152,30 +152,30 @@ void test_Defender_MacrosString( void )
  */
 void test_Defender_MacrosLength( void )
 {
-    TEST_ASSERT_EQUAL( TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH,
-                       DEFENDER_API_JSON_REPORT_PUBLISH_LENGTH( TEST_THING_NAME_LENGTH ) );
+    TEST_ASSERT_EQUAL( TEST_JSON_PUBLISH_TOPIC_LENGTH,
+                       DEFENDER_API_LENGTH_JSON_PUBLISH( TEST_THING_NAME_LENGTH ) );
 
-    TEST_ASSERT_EQUAL( TEST_JSON_REPORT_ACCEPTED_TOPIC_LENGTH,
-                       DEFENDER_API_JSON_REPORT_ACCEPTED_LENGTH( TEST_THING_NAME_LENGTH ) );
+    TEST_ASSERT_EQUAL( TEST_JSON_ACCEPTED_TOPIC_LENGTH,
+                       DEFENDER_API_LENGTH_JSON_ACCEPTED( TEST_THING_NAME_LENGTH ) );
 
-    TEST_ASSERT_EQUAL( TEST_JSON_REPORT_REJECTED_TOPIC_LENGTH,
-                       DEFENDER_API_JSON_REPORT_REJECTED_LENGTH( TEST_THING_NAME_LENGTH ) );
+    TEST_ASSERT_EQUAL( TEST_JSON_REJECTED_TOPIC_LENGTH,
+                       DEFENDER_API_LENGTH_JSON_REJECTED( TEST_THING_NAME_LENGTH ) );
 
-    TEST_ASSERT_EQUAL( TEST_CBOR_REPORT_PUBLISH_TOPIC_LENGTH,
-                       DEFENDER_API_CBOR_REPORT_PUBLISH_LENGTH( TEST_THING_NAME_LENGTH ) );
+    TEST_ASSERT_EQUAL( TEST_CBOR_PUBLISH_TOPIC_LENGTH,
+                       DEFENDER_API_LENGTH_CBOR_PUBLISH( TEST_THING_NAME_LENGTH ) );
 
-    TEST_ASSERT_EQUAL( TEST_CBOR_REPORT_ACCEPTED_TOPIC_LENGTH,
-                       DEFENDER_API_CBOR_REPORT_ACCEPTED_LENGTH( TEST_THING_NAME_LENGTH ) );
+    TEST_ASSERT_EQUAL( TEST_CBOR_ACCEPTED_TOPIC_LENGTH,
+                       DEFENDER_API_LENGTH_CBOR_ACCEPTED( TEST_THING_NAME_LENGTH ) );
 
-    TEST_ASSERT_EQUAL( TEST_CBOR_REPORT_REJECTED_TOPIC_LENGTH,
-                       DEFENDER_API_CBOR_REPORT_REJECTED_LENGTH( TEST_THING_NAME_LENGTH ) );
+    TEST_ASSERT_EQUAL( TEST_CBOR_REJECTED_TOPIC_LENGTH,
+                       DEFENDER_API_LENGTH_CBOR_REJECTED( TEST_THING_NAME_LENGTH ) );
 }
 /*-----------------------------------------------------------*/
 
 void test_Defender_GetTopic_BadParams( void )
 {
     DefenderStatus_t ret;
-    uint32_t topicLength;
+    uint16_t topicLength;
 
     /* Null buffer. */
     ret = Defender_GetTopic( NULL,
@@ -266,7 +266,7 @@ void test_Defender_GetTopic_BadParams( void )
 void test_Defender_GetTopic_BufferTooSmall( void )
 {
     DefenderStatus_t ret;
-    uint32_t topicLength;
+    uint16_t topicLength;
 
     ret = Defender_GetTopic( &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                              5, /* Length too small to fit the entire topic. */
@@ -284,7 +284,7 @@ void test_Defender_GetTopic_BufferTooSmall( void )
 void test_Defender_GetTopic_JsonPublishHappyPath( void )
 {
     DefenderStatus_t ret;
-    uint32_t topicLength;
+    uint16_t topicLength;
 
     ret = Defender_GetTopic( &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                              TEST_TOPIC_BUFFER_WRITABLE_LENGTH,
@@ -294,9 +294,9 @@ void test_Defender_GetTopic_JsonPublishHappyPath( void )
                              &( topicLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
-    TEST_ASSERT_EQUAL( TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH, topicLength );
+    TEST_ASSERT_EQUAL( TEST_JSON_PUBLISH_TOPIC_LENGTH, topicLength );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_REPORT_PUBLISH_TOPIC,
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_PUBLISH_TOPIC,
                                   &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                                   topicLength );
 
@@ -309,7 +309,7 @@ void test_Defender_GetTopic_JsonPublishHappyPath( void )
 void test_Defender_GetTopic_JsonAcceptedHappyPath( void )
 {
     DefenderStatus_t ret;
-    uint32_t topicLength;
+    uint16_t topicLength;
 
     ret = Defender_GetTopic( &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                              TEST_TOPIC_BUFFER_WRITABLE_LENGTH,
@@ -319,9 +319,9 @@ void test_Defender_GetTopic_JsonAcceptedHappyPath( void )
                              &( topicLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
-    TEST_ASSERT_EQUAL( TEST_JSON_REPORT_ACCEPTED_TOPIC_LENGTH, topicLength );
+    TEST_ASSERT_EQUAL( TEST_JSON_ACCEPTED_TOPIC_LENGTH, topicLength );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_REPORT_ACCEPTED_TOPIC,
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_ACCEPTED_TOPIC,
                                   &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                                   topicLength );
 
@@ -334,7 +334,7 @@ void test_Defender_GetTopic_JsonAcceptedHappyPath( void )
 void test_Defender_GetTopic_JsonRejectedHappyPath( void )
 {
     DefenderStatus_t ret;
-    uint32_t topicLength;
+    uint16_t topicLength;
 
     ret = Defender_GetTopic( &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                              TEST_TOPIC_BUFFER_WRITABLE_LENGTH,
@@ -344,9 +344,9 @@ void test_Defender_GetTopic_JsonRejectedHappyPath( void )
                              &( topicLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
-    TEST_ASSERT_EQUAL( TEST_JSON_REPORT_REJECTED_TOPIC_LENGTH, topicLength );
+    TEST_ASSERT_EQUAL( TEST_JSON_REJECTED_TOPIC_LENGTH, topicLength );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_REPORT_REJECTED_TOPIC,
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_JSON_REJECTED_TOPIC,
                                   &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                                   topicLength );
 
@@ -359,7 +359,7 @@ void test_Defender_GetTopic_JsonRejectedHappyPath( void )
 void test_Defender_GetTopic_CborPublishHappyPath( void )
 {
     DefenderStatus_t ret;
-    uint32_t topicLength;
+    uint16_t topicLength;
 
     ret = Defender_GetTopic( &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                              TEST_TOPIC_BUFFER_WRITABLE_LENGTH,
@@ -369,9 +369,9 @@ void test_Defender_GetTopic_CborPublishHappyPath( void )
                              &( topicLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
-    TEST_ASSERT_EQUAL( TEST_CBOR_REPORT_PUBLISH_TOPIC_LENGTH, topicLength );
+    TEST_ASSERT_EQUAL( TEST_CBOR_PUBLISH_TOPIC_LENGTH, topicLength );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_REPORT_PUBLISH_TOPIC,
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_PUBLISH_TOPIC,
                                   &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                                   topicLength );
 
@@ -384,7 +384,7 @@ void test_Defender_GetTopic_CborPublishHappyPath( void )
 void test_Defender_GetTopic_CborAcceptedHappyPath( void )
 {
     DefenderStatus_t ret;
-    uint32_t topicLength;
+    uint16_t topicLength;
 
     ret = Defender_GetTopic( &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                              TEST_TOPIC_BUFFER_WRITABLE_LENGTH,
@@ -394,9 +394,9 @@ void test_Defender_GetTopic_CborAcceptedHappyPath( void )
                              &( topicLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
-    TEST_ASSERT_EQUAL( TEST_CBOR_REPORT_ACCEPTED_TOPIC_LENGTH, topicLength );
+    TEST_ASSERT_EQUAL( TEST_CBOR_ACCEPTED_TOPIC_LENGTH, topicLength );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_REPORT_ACCEPTED_TOPIC,
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_ACCEPTED_TOPIC,
                                   &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                                   topicLength );
 
@@ -409,7 +409,7 @@ void test_Defender_GetTopic_CborAcceptedHappyPath( void )
 void test_Defender_GetTopic_CborRejectedHappyPath( void )
 {
     DefenderStatus_t ret;
-    uint32_t topicLength;
+    uint16_t topicLength;
 
     ret = Defender_GetTopic( &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                              TEST_TOPIC_BUFFER_WRITABLE_LENGTH,
@@ -419,9 +419,9 @@ void test_Defender_GetTopic_CborRejectedHappyPath( void )
                              &( topicLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
-    TEST_ASSERT_EQUAL( TEST_CBOR_REPORT_REJECTED_TOPIC_LENGTH, topicLength );
+    TEST_ASSERT_EQUAL( TEST_CBOR_REJECTED_TOPIC_LENGTH, topicLength );
 
-    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_REPORT_REJECTED_TOPIC,
+    TEST_ASSERT_EQUAL_STRING_LEN( TEST_CBOR_REJECTED_TOPIC,
                                   &( testTopicBuffer[ TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH ] ),
                                   topicLength );
 
@@ -440,15 +440,15 @@ void test_Defender_MatchTopic_BadParams( void )
 
     /* NULL topic. */
     ret = Defender_MatchTopic( NULL,
-                               TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH,
+                               TEST_JSON_PUBLISH_TOPIC_LENGTH,
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
     TEST_ASSERT_EQUAL( DefenderBadParameter, ret );
 
     /* NULL output parameter. */
-    ret = Defender_MatchTopic( TEST_JSON_REPORT_PUBLISH_TOPIC,
-                               TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_JSON_PUBLISH_TOPIC,
+                               TEST_JSON_PUBLISH_TOPIC_LENGTH,
                                NULL,
                                &( pThingName ),
                                &( thingNameLength ) );
@@ -664,15 +664,15 @@ void test_Defender_MatchTopic_JsonPublishHappyPath( void )
     uint16_t thingNameLength;
     DefenderTopic_t api;
 
-    ret = Defender_MatchTopic( TEST_JSON_REPORT_PUBLISH_TOPIC,
-                               TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_JSON_PUBLISH_TOPIC,
+                               TEST_JSON_PUBLISH_TOPIC_LENGTH,
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
     TEST_ASSERT_EQUAL( DefenderJsonReportPublish, api );
-    TEST_ASSERT_EQUAL_PTR( TEST_JSON_REPORT_PUBLISH_TOPIC + DEFENDER_API_PREFIX_LENGTH, pThingName );
+    TEST_ASSERT_EQUAL_PTR( TEST_JSON_PUBLISH_TOPIC + DEFENDER_API_LENGTH_PREFIX, pThingName );
     TEST_ASSERT_EQUAL( TEST_THING_NAME_LENGTH, thingNameLength );
 }
 /*-----------------------------------------------------------*/
@@ -684,15 +684,15 @@ void test_Defender_MatchTopic_JsonAcceptedHappyPath( void )
     uint16_t thingNameLength;
     DefenderTopic_t api;
 
-    ret = Defender_MatchTopic( TEST_JSON_REPORT_ACCEPTED_TOPIC,
-                               TEST_JSON_REPORT_ACCEPTED_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_JSON_ACCEPTED_TOPIC,
+                               TEST_JSON_ACCEPTED_TOPIC_LENGTH,
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
     TEST_ASSERT_EQUAL( DefenderJsonReportAccepted, api );
-    TEST_ASSERT_EQUAL_PTR( TEST_JSON_REPORT_ACCEPTED_TOPIC + DEFENDER_API_PREFIX_LENGTH, pThingName );
+    TEST_ASSERT_EQUAL_PTR( TEST_JSON_ACCEPTED_TOPIC + DEFENDER_API_LENGTH_PREFIX, pThingName );
     TEST_ASSERT_EQUAL( TEST_THING_NAME_LENGTH, thingNameLength );
 }
 /*-----------------------------------------------------------*/
@@ -704,15 +704,15 @@ void test_Defender_MatchTopic_JsonRejectedHappyPath( void )
     uint16_t thingNameLength;
     DefenderTopic_t api;
 
-    ret = Defender_MatchTopic( TEST_JSON_REPORT_REJECTED_TOPIC,
-                               TEST_JSON_REPORT_REJECTED_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_JSON_REJECTED_TOPIC,
+                               TEST_JSON_REJECTED_TOPIC_LENGTH,
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
     TEST_ASSERT_EQUAL( DefenderJsonReportRejected, api );
-    TEST_ASSERT_EQUAL_PTR( TEST_JSON_REPORT_REJECTED_TOPIC + DEFENDER_API_PREFIX_LENGTH, pThingName );
+    TEST_ASSERT_EQUAL_PTR( TEST_JSON_REJECTED_TOPIC + DEFENDER_API_LENGTH_PREFIX, pThingName );
     TEST_ASSERT_EQUAL( TEST_THING_NAME_LENGTH, thingNameLength );
 }
 /*-----------------------------------------------------------*/
@@ -724,15 +724,15 @@ void test_Defender_MatchTopic_CborPublishHappyPath( void )
     uint16_t thingNameLength;
     DefenderTopic_t api;
 
-    ret = Defender_MatchTopic( TEST_CBOR_REPORT_PUBLISH_TOPIC,
-                               TEST_CBOR_REPORT_PUBLISH_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_CBOR_PUBLISH_TOPIC,
+                               TEST_CBOR_PUBLISH_TOPIC_LENGTH,
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
     TEST_ASSERT_EQUAL( DefenderCborReportPublish, api );
-    TEST_ASSERT_EQUAL_PTR( TEST_CBOR_REPORT_PUBLISH_TOPIC + DEFENDER_API_PREFIX_LENGTH, pThingName );
+    TEST_ASSERT_EQUAL_PTR( TEST_CBOR_PUBLISH_TOPIC + DEFENDER_API_LENGTH_PREFIX, pThingName );
     TEST_ASSERT_EQUAL( TEST_THING_NAME_LENGTH, thingNameLength );
 }
 /*-----------------------------------------------------------*/
@@ -744,15 +744,15 @@ void test_Defender_MatchTopic_CborAcceptedHappyPath( void )
     uint16_t thingNameLength;
     DefenderTopic_t api;
 
-    ret = Defender_MatchTopic( TEST_CBOR_REPORT_ACCEPTED_TOPIC,
-                               TEST_CBOR_REPORT_ACCEPTED_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_CBOR_ACCEPTED_TOPIC,
+                               TEST_CBOR_ACCEPTED_TOPIC_LENGTH,
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
     TEST_ASSERT_EQUAL( DefenderCborReportAccepted, api );
-    TEST_ASSERT_EQUAL_PTR( TEST_CBOR_REPORT_ACCEPTED_TOPIC + DEFENDER_API_PREFIX_LENGTH, pThingName );
+    TEST_ASSERT_EQUAL_PTR( TEST_CBOR_ACCEPTED_TOPIC + DEFENDER_API_LENGTH_PREFIX, pThingName );
     TEST_ASSERT_EQUAL( TEST_THING_NAME_LENGTH, thingNameLength );
 }
 /*-----------------------------------------------------------*/
@@ -764,15 +764,15 @@ void test_Defender_MatchTopic_CborRejectedHappyPath( void )
     uint16_t thingNameLength;
     DefenderTopic_t api;
 
-    ret = Defender_MatchTopic( TEST_CBOR_REPORT_REJECTED_TOPIC,
-                               TEST_CBOR_REPORT_REJECTED_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_CBOR_REJECTED_TOPIC,
+                               TEST_CBOR_REJECTED_TOPIC_LENGTH,
                                &( api ),
                                &( pThingName ),
                                &( thingNameLength ) );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
     TEST_ASSERT_EQUAL( DefenderCborReportRejected, api );
-    TEST_ASSERT_EQUAL_PTR( TEST_CBOR_REPORT_REJECTED_TOPIC + DEFENDER_API_PREFIX_LENGTH, pThingName );
+    TEST_ASSERT_EQUAL_PTR( TEST_CBOR_REJECTED_TOPIC + DEFENDER_API_LENGTH_PREFIX, pThingName );
     TEST_ASSERT_EQUAL( TEST_THING_NAME_LENGTH, thingNameLength );
 }
 /*-----------------------------------------------------------*/
@@ -785,8 +785,8 @@ void test_Defender_MatchTopic_MissingOptionalParams( void )
     DefenderTopic_t api;
 
     /* Missing output param for returning thing name. */
-    ret = Defender_MatchTopic( TEST_JSON_REPORT_PUBLISH_TOPIC,
-                               TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_JSON_PUBLISH_TOPIC,
+                               TEST_JSON_PUBLISH_TOPIC_LENGTH,
                                &( api ),
                                NULL,
                                &( thingNameLength ) );
@@ -796,20 +796,20 @@ void test_Defender_MatchTopic_MissingOptionalParams( void )
     TEST_ASSERT_EQUAL( TEST_THING_NAME_LENGTH, thingNameLength );
 
     /* Missing output param for returning thing name length. */
-    ret = Defender_MatchTopic( TEST_JSON_REPORT_PUBLISH_TOPIC,
-                               TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_JSON_PUBLISH_TOPIC,
+                               TEST_JSON_PUBLISH_TOPIC_LENGTH,
                                &( api ),
                                &( pThingName ),
                                NULL );
 
     TEST_ASSERT_EQUAL( DefenderSuccess, ret );
     TEST_ASSERT_EQUAL( DefenderJsonReportPublish, api );
-    TEST_ASSERT_EQUAL_PTR( TEST_JSON_REPORT_PUBLISH_TOPIC + DEFENDER_API_PREFIX_LENGTH, pThingName );
+    TEST_ASSERT_EQUAL_PTR( TEST_JSON_PUBLISH_TOPIC + DEFENDER_API_LENGTH_PREFIX, pThingName );
 
     /* Missing output param for returning both thing name and thing name
      * length. */
-    ret = Defender_MatchTopic( TEST_JSON_REPORT_PUBLISH_TOPIC,
-                               TEST_JSON_REPORT_PUBLISH_TOPIC_LENGTH,
+    ret = Defender_MatchTopic( TEST_JSON_PUBLISH_TOPIC,
+                               TEST_JSON_PUBLISH_TOPIC_LENGTH,
                                &( api ),
                                NULL,
                                NULL );
