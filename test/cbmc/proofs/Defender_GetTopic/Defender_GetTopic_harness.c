@@ -36,6 +36,7 @@ void harness()
     uint16_t * pOutLength;
 
     __CPROVER_assume( topicBufferLength < CBMC_MAX_OBJECT_SIZE );
+
     /* +1 is to ensure that we run the function for invalid thing name length as
      * well. */
     __CPROVER_assume( thingNameLength <= ( DEFENDER_THINGNAME_MAX_LENGTH + 1 ) );
