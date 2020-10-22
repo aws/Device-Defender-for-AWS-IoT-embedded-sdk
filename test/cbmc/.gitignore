@@ -1,10 +1,10 @@
-# Emitted when running CBMC proofs.
+# Emitted when running CBMC proofs
 proofs/**/logs
 proofs/**/gotos
 proofs/**/report
 proofs/**/html
 
-# Emitted by CBMC Viewer.
+# Emitted by CBMC Viewer
 TAGS-*
 
 # Emitted by Arpa
@@ -12,8 +12,9 @@ arpa_cmake/
 arpa-validation-logs/
 Makefile.arpa
 
-# Artifacts from running proofs.
-.litani_cache_dir
+# Emitted by litani
 .ninja_deps
 .ninja_log
+.litani_cache_dir
+
 __pycache__/
