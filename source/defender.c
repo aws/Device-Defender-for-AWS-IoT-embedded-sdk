@@ -21,7 +21,7 @@
 
 /**
  * @file defender.c
- * @brief Implementation of the Device Defender library.
+ * @brief Implementation of the AWS IoT Device Defender Client Library.
  */
 
 /* Standard includes. */
@@ -79,8 +79,8 @@ static DefenderStatus_t matchPrefix( const char * pRemainingTopic,
  * is not valid.
  *
  * This function extracts the same thing name from the following topic strings:
- *   - $aws/things/<ThingName>/defender/metrics/json
- *   - $aws/things/<ThingName>
+ *   - $aws/things/THING_NAME/defender/metrics/json
+ *   - $aws/things/THING_NAME
  * The second topic is not a valid defender topic and the matching will fail
  * when we try to match the bridge part.
  *
