@@ -49,7 +49,7 @@ typedef enum
 {
     DefenderError = 0,     /**< Generic Error. */
     DefenderSuccess,       /**< Success. */
-    DefenderNoMatch,       /**< The provied topic does not match. */
+    DefenderNoMatch,       /**< The provided topic does not match any defender topic. */
     DefenderBadParameter,  /**< Invalid parameters were passed. */
     DefenderBufferTooSmall /**< The output buffer is too small. */
 } DefenderStatus_t;
@@ -87,7 +87,7 @@ typedef enum
 
 /**
  * @ingroup defender_constants
- * @brief Minimumm period between 2 consecutive defender reports sent by the
+ * @brief Minimum period between 2 consecutive defender reports sent by the
  * device.
  *
  * This is as per AWS IoT Device Defender Service reference.

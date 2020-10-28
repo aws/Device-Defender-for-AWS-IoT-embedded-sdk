@@ -52,7 +52,7 @@ loop Forever
     Defender -> App : Yes/No
         note right
             The Defender library also tells if the report was accepted by
-            
+
             the service or not.
         endnote
     deactivate Defender
