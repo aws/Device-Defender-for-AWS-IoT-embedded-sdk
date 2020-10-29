@@ -61,12 +61,12 @@ typedef enum
 typedef enum
 {
     DefenderInvalidTopic = -1,  /**< Invalid topic. */
-    DefenderJsonReportPublish,  /**< Topic for publishing JSON report. */
-    DefenderJsonReportAccepted, /**< Topic for getting JSON report accepted response. */
-    DefenderJsonReportRejected, /**< Topic for getting JSON report rejected response. */
-    DefenderCborReportPublish,  /**< Topic for publishing CBOR report. */
-    DefenderCborReportAccepted, /**< Topic for getting CBOR report accepted response. */
-    DefenderCborReportRejected, /**< Topic for getting CBOR report rejected response. */
+    DefenderJsonReportPublish,  /**< Topic for publishing a JSON report. */
+    DefenderJsonReportAccepted, /**< Topic for getting a JSON report accepted response. */
+    DefenderJsonReportRejected, /**< Topic for getting a JSON report rejected response. */
+    DefenderCborReportPublish,  /**< Topic for publishing a CBOR report. */
+    DefenderCborReportAccepted, /**< Topic for getting a CBOR report accepted response. */
+    DefenderCborReportRejected, /**< Topic for getting a CBOR report rejected response. */
     DefenderMaxTopic
 } DefenderTopic_t;
 
@@ -163,7 +163,7 @@ typedef enum
 /** @endcond */
 
 /**
- * @brief Length of the topic string for publishing JSON report.
+ * @brief Length of the topic string for publishing a JSON report.
  *
  * @param[in] thingNameLength Length of the thing name as registered with AWS IoT Core.
  */
@@ -173,7 +173,7 @@ typedef enum
                                 DEFENDER_API_LENGTH_NULL_SUFFIX )
 
 /**
- * @brief Length of the topic string for getting JSON report accepted response.
+ * @brief Length of the topic string for getting a JSON report accepted response.
  *
  * @param[in] thingNameLength Length of the thing name as registered with AWS IoT Core.
  */
@@ -183,7 +183,7 @@ typedef enum
                                 DEFENDER_API_LENGTH_ACCEPTED_SUFFIX )
 
 /**
- * @brief Length of the topic string for getting JSON report rejected response.
+ * @brief Length of the topic string for getting a JSON report rejected response.
  *
  * @param[in] thingNameLength Length of the thing name as registered with AWS IoT Core.
  */
@@ -193,7 +193,7 @@ typedef enum
                                 DEFENDER_API_LENGTH_REJECTED_SUFFIX )
 
 /**
- * @brief Length of the topic string for publishing CBOR report.
+ * @brief Length of the topic string for publishing a CBOR report.
  *
  * @param[in] thingNameLength Length of the thing name as registered with AWS IoT Core.
  */
@@ -203,7 +203,7 @@ typedef enum
                                 DEFENDER_API_LENGTH_NULL_SUFFIX )
 
 /**
- * @brief  Length of the topic string for getting CBOR report accepted response.
+ * @brief  Length of the topic string for getting a CBOR report accepted response.
  *
  * @param[in] thingNameLength Length of the thing name. as registered with AWS IoT Core.
  */
@@ -213,7 +213,7 @@ typedef enum
                                 DEFENDER_API_LENGTH_ACCEPTED_SUFFIX )
 
 /**
- * @brief  Length of the topic string for getting CBOR report rejected response.
+ * @brief  Length of the topic string for getting a CBOR report rejected response.
  *
  * @param[in] thingNameLength Length of the thing name as registered with AWS IoT Core.
  */
@@ -248,7 +248,7 @@ typedef enum
 /** @endcond */
 
 /**
- * @brief Topic string for publishing JSON report.
+ * @brief Topic string for publishing a JSON report.
  *
  * This macro should be used when the thing name is known at the compile time.
  * If the thing name is not known at compile time, the #Defender_GetTopic API
@@ -262,7 +262,7 @@ typedef enum
                          DEFENDER_API_NULL_SUFFIX )
 
 /**
- * @brief Topic string for getting JSON report accepted response.
+ * @brief Topic string for getting a JSON report accepted response.
  *
  * This macro should be used when the thing name is known at the compile time.
  * If the thing name is not known at compile time, the #Defender_GetTopic API
@@ -276,7 +276,7 @@ typedef enum
                          DEFENDER_API_ACCEPTED_SUFFIX )
 
 /**
- * @brief Topic string for getting JSON report rejected response.
+ * @brief Topic string for getting a JSON report rejected response.
  *
  * This macro should be used when the thing name is known at the compile time.
  * If the thing name is not known at compile time, the #Defender_GetTopic API
@@ -290,7 +290,7 @@ typedef enum
                          DEFENDER_API_REJECTED_SUFFIX )
 
 /**
- * @brief Topic string for publishing CBOR report.
+ * @brief Topic string for publishing a CBOR report.
  *
  * This macro should be used when the thing name is known at the compile time.
  * If the thing name is not known at compile time, the #Defender_GetTopic API
@@ -304,7 +304,7 @@ typedef enum
                          DEFENDER_API_NULL_SUFFIX )
 
 /**
- * @brief Topic string for getting CBOR report accepted response.
+ * @brief Topic string for getting a CBOR report accepted response.
  *
  * This macro should be used when the thing name is known at the compile time.
  * If the thing name is not known at compile time, the #Defender_GetTopic API
@@ -318,7 +318,7 @@ typedef enum
                          DEFENDER_API_ACCEPTED_SUFFIX )
 
 /**
- * @brief Topic string for getting CBOR report rejected response.
+ * @brief Topic string for getting a CBOR report rejected response.
  *
  * This macro should be used when the thing name is known at the compile time.
  * If the thing name is not known at compile time, the #Defender_GetTopic API
@@ -602,7 +602,7 @@ typedef enum
 /*-----------------------------------------------------------*/
 
 /**
- * @brief Populate topic string for a Device Defender operation.
+ * @brief Populate the topic string for a Device Defender operation.
  *
  * @param[in] pBuffer The buffer to write the topic string into.
  * @param[in] bufferLength The length of the buffer.
@@ -619,7 +619,7 @@ typedef enum
  * @code{c}
  *
  * // The following example shows how to use Defender_GetTopic API to generate a
- * // topic string for getting JSON report accepted response.
+ * // topic string for getting a JSON report accepted response.
  *
  * #define TOPIC_BUFFER_LENGTH      ( 256U )
  *
@@ -643,7 +643,7 @@ typedef enum
  * if( status == DefenderSuccess )
  * {
  *      // The buffer topicBuffer contains the topic string of length
- *      // topicLength for getting JSON report accepted response. Subscribe
+ *      // topicLength for getting a JSON report accepted response. Subscribe
  *      // to this topic using an MQTT client of your choice.
  * }
  * @endcode
@@ -687,7 +687,7 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
  * DefenderTopic_t api;
  * DefenderStatus_t status = DefenderSuccess;
  *
- * // pTopic and topicLength are topic string and its length of the topic on
+ * // pTopic and topicLength are the topic string and length of the topic on
  * // which the publish message is received. These are usually provided by the
  * // MQTT client used. We pass the last two argument as NULL as we are not
  * // interested in the thing name in the topic string.

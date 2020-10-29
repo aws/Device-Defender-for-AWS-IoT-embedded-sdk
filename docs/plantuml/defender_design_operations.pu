@@ -46,7 +46,7 @@ loop Forever
     MQTT -> App : Incoming Publish Message Received
     deactivate MQTT
 
-    App -> Defender : Is this a Defender Message
+    App -> Defender : Is this a Defender Message?
 
     activate Defender
     Defender -> App : Yes/No
