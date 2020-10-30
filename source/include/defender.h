@@ -618,15 +618,14 @@ typedef enum
  * <b>Example</b>
  * @code{c}
  *
- * // The following example shows how to use Defender_GetTopic API to generate a
- * // topic string for getting a JSON report accepted response.
+ * // The following example shows how to use the Defender_GetTopic API to
+ * // generate a topic string for getting a JSON report accepted response.
  *
  * #define TOPIC_BUFFER_LENGTH      ( 256U )
  *
- * // Every device should have a corresponding thing registered with the AWS IoT
- * // Core which is identified by a unique thing name. This example assumes that
- * // the device has a unique serial number which is registered as the thing
- * // name with AWS IoT Core.
+ * // Every device should have a unique thing name registered with AWS IoT Core.
+ * // This example assumes that the device has a unique serial number which is
+ * // registered as the thing name with AWS IoT Core.
  * const char * pThingName = GetDeviceSerialNumber();
  * uint16_t thingNameLength = ( uint16_t )strlen( pThingname );
  * char topicBuffer[ TOPIC_BUFFER_LENGTH ] = { 0 };
@@ -681,8 +680,8 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
  * <b>Example</b>
  * @code{c}
  *
- * // The following example shows how to use Defender_MatchTopic API to check
- * // if an incoming MQTT publish message is a Device Defender message.
+ * // The following example shows how to use the Defender_MatchTopic API to
+ * // check if an incoming MQTT publish message is a Device Defender message.
  *
  * DefenderTopic_t api;
  * DefenderStatus_t status = DefenderSuccess;

@@ -38,7 +38,7 @@ AWS IoT Device Defender lets you continuously monitor security metrics from devi
 @page defender_design Design
 AWS IoT Device Defender Client Library Design
 
-The AWS IoT Device Defender Client Library provides macros and functions to assemble and parse MQTT topic strings reserved for the Device Defender. It does not depend on MQTT library and the application can use any MQTT library to interact with the AWS IoT Device Defender service.
+The AWS IoT Device Defender Client Library provides macros and functions to assemble and parse MQTT topic strings reserved for the Device Defender. Applications can use this library in conjunction with any MQTT library to interact with the AWS IoT Device Defender service.
 
 The diagram below demonstrates how an application uses the Device Defender Client Library, an MQTT library, and a JSON library to interact with the AWS IoT Device Defender service.
 
