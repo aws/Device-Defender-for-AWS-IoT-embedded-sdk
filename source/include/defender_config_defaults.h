@@ -21,11 +21,32 @@
 
 /**
  * @file defender_config_defaults.h
- * @brief Default config values for the Device Defender library.
+ * @brief Default config values for the AWS IoT Device Defender Client Library.
  */
 
 #ifndef DEFENDER_CONFIG_DEFAULTS_H_
 #define DEFENDER_CONFIG_DEFAULTS_H_
+
+/* The macro definition for DEFENDER_DO_NOT_USE_CUSTOM_CONFIG is for Doxygen
+ * documentation only. */
+
+/**
+ * @brief Define this macro to build the AWS IoT Device Defender Client Library
+ * without the custom config file defender_config.h.
+ *
+ * Without the custom config, the the AWS IoT Device Defender Client Library
+ * builds with default values of config macros defined in the
+ * defender_config_defaults.h file.
+ *
+ * If a custom config file is provided, then DEFENDER_DO_NOT_USE_CUSTOM_CONFIG
+ * must not be defined.
+ *
+ * <b>Default value</b>: DEFENDER_DO_NOT_USE_CUSTOM_CONFIG is <b>not</b> defined
+ * by default and the library expects a defender_config.h file.
+ */
+#ifdef DOXYGEN
+    #define DEFENDER_DO_NOT_USE_CUSTOM_CONFIG
+#endif
 
 /**
  * @brief Set it to 1 to enable use of long key names in the defender report.
@@ -34,6 +55,7 @@
  * in the report sent by a device. For example,
  *
  * A device defender report using long key names:
+ * @code{c}
  * {
  *     "header": {
  *         "report_id": 1530304554,
@@ -48,8 +70,10 @@
  *         }
  *     }
  * }
+ * @endcode
  *
  * An equivalent report using short key names:
+ * @code{c}
  * {
  *     "hed": {
  *         "rid": 1530304554,
@@ -64,10 +88,12 @@
  *         }
  *     }
  * }
+ * @endcode
  *
- * Short key names are preferred option for resource constrained devices because
- * they result in smaller report size. If you want to use long key names instead,
- * set DEFENDER_USE_LONG_KEYS to 1 in defender_config.h.
+ * <b>Default value</b>: 0 as short key names are preferred option for resource
+ * constrained devices because they result in smaller report size. If you want
+ * to use long key names instead, set DEFENDER_USE_LONG_KEYS to 1 in the
+ * defender_config.h file.
  */
 #ifndef DEFENDER_USE_LONG_KEYS
     #define DEFENDER_USE_LONG_KEYS    0
@@ -78,6 +104,15 @@
  *
  * To enable error logging, this macro should be mapped to an
  * application-specific logging implementation.
+ *
+ * @note This logging macro is called in the Device Defender client library with
+ * parameters wrapped in double parentheses to be ISO C89/C90 standard
+ * compliant. For a reference POSIX implementation of the logging macros, refer
+ * to the defender_config.h file, and the logging-stack in demos folder of the
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master).
+ *
+ * <b>Default value</b>: Error logs are turned off, and no code is generated
+ * for calls to the macro in the Device Defender client library on compilation.
  */
 #ifndef LogError
     #define LogError( message )
@@ -88,6 +123,15 @@
  *
  * To enable warning logging, this macro should be mapped to an
  * application-specific logging implementation.
+ *
+ * @note This logging macro is called in the Device Defender client library with
+ * parameters wrapped in double parentheses to be ISO C89/C90 standard
+ * compliant. For a reference POSIX implementation of the logging macros, refer
+ * to the defender_config.h file, and the logging-stack in demos folder of the
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master).
+ *
+ * <b>Default value</b>: Warning logs are turned off, and no code is generated
+ * for calls to the macro in the Device Defender client library on compilation.
  */
 #ifndef LogWarn
     #define LogWarn( message )
@@ -98,6 +142,15 @@
  *
  * To enable info logging, this macro should be mapped to an
  * application-specific logging implementation.
+ *
+ * @note This logging macro is called in the Device Defender client library with
+ * parameters wrapped in double parentheses to be ISO C89/C90 standard
+ * compliant. For a reference POSIX implementation of the logging macros, refer
+ * to the defender_config.h file, and the logging-stack in demos folder of the
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master).
+ *
+ * <b>Default value</b>: Info logs are turned off, and no code is generated for
+ * calls to the macro in the Device Defender client library on compilation.
  */
 #ifndef LogInfo
     #define LogInfo( message )
@@ -108,6 +161,15 @@
  *
  * To enable debug logging, this macro should be mapped to an
  * application-specific logging implementation.
+ *
+ * @note This logging macro is called in the Device Defender client library with
+ * parameters wrapped in double parentheses to be ISO C89/C90 standard
+ * compliant. For a reference POSIX implementation of the logging macros, refer
+ * to the defender_config.h file, and the logging-stack in demos folder of the
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master).
+ *
+ * <b>Default value</b>: Debug logs are turned off, and no code is generated for
+ * calls to the macro in the Device Defender client library on compilation.
  */
 #ifndef LogDebug
     #define LogDebug( message )
