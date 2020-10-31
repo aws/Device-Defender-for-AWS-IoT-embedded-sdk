@@ -76,7 +76,7 @@ in [test/CMakeLists.txt](test/CMakeLists.txt) file.
 
 ## Reference examples
 
-The AWS IoT Embedded C-SDK repository contains demo showing the use of AWS IoT
+The AWS IoT Embedded C-SDK repository contains a demo showing the use of AWS IoT
 Device Defender Client Library [here](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master/demos/defender/defender_demo_json)
 on a POSIX platform.
 
