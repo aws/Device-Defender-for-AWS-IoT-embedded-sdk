@@ -12,8 +12,7 @@ score over 8, and checks against deviations from mandatory rules in the
 [MISRA coding standard](https://www.misra.org.uk/MISRAHome/MISRAC2012/tabid/196/Default.aspx).
 Deviations from the MISRA C:2012 guidelines are documented under [MISRA Deviations](MISRA.md).
 This library has also undergone static code analysis using [Coverity static analysis](https://scan.coverity.com/),
-and validation of memory safety and proof of functional correctness through the
-[CBMC automated reasoning tool](https://www.cprover.org/cbmc/).
+and validation of memory safety through the [CBMC automated reasoning tool](https://www.cprover.org/cbmc/).
 
 ## AWS IoT Device Defender Client Config File
 
