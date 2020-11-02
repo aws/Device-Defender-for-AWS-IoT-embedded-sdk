@@ -1,4 +1,4 @@
-# Change Log for AWS IoT Device Defender Client Library
+# Changelog for AWS IoT Device Defender Client Library
 
 ## v1.0.0 (November 2020)
 
