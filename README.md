@@ -1,20 +1,24 @@
-# Device Defender Client Library
+# AWS IoT Device Defender Client Library
 
-This repository contains the Device Defender client library for interacting with
-the [AWS IoT Device Defender Service](https://aws.amazon.com/iot-device-defender/).
+This repository contains the AWS IoT Device Defender client library for interacting
+with the [AWS IoT Device Defender Service](https://aws.amazon.com/iot-device-defender/).
 This library has no dependencies on any additional libraries other than the
 standard C library, and therefore, can be used with any MQTT client library.
 This library is distributed under the [MIT Open Source License](LICENSE).
 
 This library has gone through code quality checks including verification that no
 function has a [GNU Complexity](https://www.gnu.org/software/complexity/manual/complexity.html)
-score over 8.
+score over 8, and checks against deviations from mandatory rules in the
+[MISRA coding standard](https://www.misra.org.uk/MISRAHome/MISRAC2012/tabid/196/Default.aspx).
+Deviations from the MISRA C:2012 guidelines are documented under [MISRA Deviations](MISRA.md).
+This library has also undergone static code analysis using [Coverity static analysis](https://scan.coverity.com/),
+and validation of memory safety through the [CBMC automated reasoning tool](https://www.cprover.org/cbmc/).
 
-## Device Defender Config File
+## AWS IoT Device Defender Client Config File
 
-The Device Defender client library exposes build configuration macros that are
-required for building the library. A list of all the configurations and their
-default values are defined in
+The AWS IoT Device Defender Client Library exposes build configuration macros
+that are required for building the library. A list of all the configurations and
+their default values are defined in
 [defender_config_defaults.h](source/include/defender_config_defaults.h).
 To provide custom values for the configuration macros, a config file named
 `defender_config.h` can be provided by the application to the library.
@@ -68,3 +72,18 @@ in [test/CMakeLists.txt](test/CMakeLists.txt) file.
 1. The generated test executables will be present in `build/bin/tests` folder.
 
 1. Run `cd build && ctest` to execute all tests and view the test run summary.
+
+## Reference examples
+
+The AWS IoT Embedded C-SDK repository contains a demo showing the use of AWS IoT
+Device Defender Client Library [here](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master/demos/defender/defender_demo_json)
+on a POSIX platform.
+
+## Generating documentation
+
+The Doxygen references were created using Doxygen version 1.8.20. To generate the
+Doxygen pages, please run the following command from the root of this repository:
+
+```shell
+doxygen docs/doxygen/config.doxyfile
+```
