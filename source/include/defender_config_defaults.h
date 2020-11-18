@@ -110,7 +110,7 @@
  * parameters wrapped in double parentheses to be ISO C89/C90 standard
  * compliant. For a reference POSIX implementation of the logging macros, refer
  * to the defender_config.h file, and the logging-stack in demos folder of the
- * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master).
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C).
  *
  * <b>Default value</b>: Error logs are turned off, and no code is generated
  * for calls to the macro in the Device Defender client library on compilation.
@@ -129,7 +129,7 @@
  * parameters wrapped in double parentheses to be ISO C89/C90 standard
  * compliant. For a reference POSIX implementation of the logging macros, refer
  * to the defender_config.h file, and the logging-stack in demos folder of the
- * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master).
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C).
  *
  * <b>Default value</b>: Warning logs are turned off, and no code is generated
  * for calls to the macro in the Device Defender client library on compilation.
@@ -148,7 +148,7 @@
  * parameters wrapped in double parentheses to be ISO C89/C90 standard
  * compliant. For a reference POSIX implementation of the logging macros, refer
  * to the defender_config.h file, and the logging-stack in demos folder of the
- * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master).
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C).
  *
  * <b>Default value</b>: Info logs are turned off, and no code is generated for
  * calls to the macro in the Device Defender client library on compilation.
@@ -167,7 +167,7 @@
  * parameters wrapped in double parentheses to be ISO C89/C90 standard
  * compliant. For a reference POSIX implementation of the logging macros, refer
  * to the defender_config.h file, and the logging-stack in demos folder of the
- * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master).
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C).
  *
  * <b>Default value</b>: Debug logs are turned off, and no code is generated for
  * calls to the macro in the Device Defender client library on compilation.
