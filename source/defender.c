@@ -402,11 +402,11 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
         ret = DefenderBadParameter;
 
         LogError( ( "Invalid input parameter. pBuffer: %p, bufferLength: %u, "
-                    "pThingName: %p, thingNameLength: %u, api: %d, pOutLength: %p.\r\n",
+                    "pThingName: %p, thingNameLength: %u, api: %d, pOutLength: %p.",
                     ( void * ) pBuffer,
-                    bufferLength,
+                    (unsigned int)bufferLength,
                     ( void * ) pThingName,
-                    thingNameLength,
+                    (unsigned int)thingNameLength,
                     api,
                     ( void * ) pOutLength ) );
     }
@@ -420,9 +420,9 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
             ret = DefenderBufferTooSmall;
 
             LogError( ( "The buffer is too small to hold the topic string. "
-                        "Provided buffer size: %u, Required buffer size: %u.\r\n",
-                        bufferLength,
-                        topicLength ) );
+                        "Provided buffer size: %u, Required buffer size: %u.",
+                        (unsigned int)bufferLength,
+                        (unsigned int)topicLength ) );
         }
     }
 
@@ -471,7 +471,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
     if( ( pTopic == NULL ) || ( pOutApi == NULL ) )
     {
         ret = DefenderBadParameter;
-        LogError( ( "Invalid input parameter. pTopic: %p, pOutApi: %p.\r\n",
+        LogError( ( "Invalid input parameter. pTopic: %p, pOutApi: %p.",
                     ( void * ) pTopic,
                     ( void * ) pOutApi ) );
     }
@@ -492,7 +492,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
         }
         else
         {
-            LogDebug( ( "The topic does not contain defender prefix $aws/things/.\r\n" ) );
+            LogDebug( ( "The topic does not contain defender prefix $aws/things/." ) );
         }
     }
 
@@ -509,7 +509,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
         }
         else
         {
-            LogDebug( ( "The topic does not contain a valid thing name.\r\n" ) );
+            LogDebug( ( "The topic does not contain a valid thing name." ) );
         }
     }
 
@@ -525,7 +525,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
         }
         else
         {
-            LogDebug( ( "The topic does not contain the defender bridge /defender/metrics/.\r\n" ) );
+            LogDebug( ( "The topic does not contain the defender bridge /defender/metrics/." ) );
         }
     }
 
@@ -538,7 +538,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
         if( ret != DefenderSuccess )
         {
             LogDebug( ( "The topic does not contain valid report format or suffix "
-                        " needed to be a valid defender topic.\r\n" ) );
+                        " needed to be a valid defender topic." ) );
         }
     }
 
