@@ -14,7 +14,7 @@ Deviations from the MISRA C:2012 guidelines are documented under [MISRA Deviatio
 This library has also undergone static code analysis using [Coverity static analysis](https://scan.coverity.com/),
 and validation of memory safety through the [CBMC automated reasoning tool](https://www.cprover.org/cbmc/).
 
-See memory requirements for this library [here](https://docs.aws.amazon.com/embedded-csdk/202011.00/lib-ref/libraries/aws/device-defender-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html#defender_memory_requirements).
+See memory requirements for this library [here](https://docs.aws.amazon.com/embedded-csdk/202012.00/lib-ref/libraries/aws/device-defender-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html#defender_memory_requirements).
 
 ## AWS IoT Device Defender Client Config File
 
