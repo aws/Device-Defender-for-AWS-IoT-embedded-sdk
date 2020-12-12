@@ -66,7 +66,7 @@
  *     +--------------+-------------------------------+------------+
  *
  * Both guard buffers are filled with a known pattern before each test and are
- * verified to reamain unchanged after each test.
+ * verified to remain unchanged after each test.
  */
 #define TEST_TOPIC_BUFFER_PREFIX_GUARD_LENGTH    32
 #define TEST_TOPIC_BUFFER_WRITABLE_LENGTH        256
