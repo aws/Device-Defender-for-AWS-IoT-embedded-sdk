@@ -21,15 +21,13 @@ AWS IoT Device Defender lets you continuously monitor security metrics from devi
     </tr>
     <tr>
         <td><b>File</b></td>
-        <td><b>No Optimization (asserts enabled)</b></td>
         <td><b>With -O1 Optimization (asserts disabled)</b></td>
         <td><b>With -Os Optimization (asserts disabled)</b></td>
     </tr>
     <tr>
         <td>defender.c</td>
-        <td>3.1K</td>
-        <td>1.2K</td>
-        <td>0.9K</td>
+        <td>1.1K</td>
+        <td>0.6K</td>
     </tr>
 </table>
  */
