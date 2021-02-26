@@ -16,6 +16,8 @@ and validation of memory safety through the [CBMC automated reasoning tool](http
 
 See memory requirements for this library [here](https://docs.aws.amazon.com/embedded-csdk/202012.00/lib-ref/libraries/aws/device-defender-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html#defender_memory_requirements).
 
+**AWS IoT Device Defender v1.1.0 [source code](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/tree/v1.1.0/source) is part of the [FreeRTOS 202012.01 LTS](https://github.com/FreeRTOS/FreeRTOS-LTS/tree/202012.01-LTS) release.**
+
 ## AWS IoT Device Defender Client Config File
 
 The AWS IoT Device Defender Client Library exposes build configuration macros
