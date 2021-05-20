@@ -57,7 +57,7 @@ in [test/CMakeLists.txt](test/CMakeLists.txt) file.
 
 ## Building Unit Tests
 
-### Platform Prerequisites
+### Unit Test Platform Prerequisites
 
 - For running unit tests:
     - **C90 compiler** like gcc.
