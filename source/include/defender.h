@@ -341,9 +341,9 @@ typedef enum
 
 /* Keys used in defender report. */
 #if ( defined( DEFENDER_USE_LONG_KEYS ) && ( DEFENDER_USE_LONG_KEYS == 1 ) )
-    #define DEFENDER_REPORT_SELECT_KEY( longKey, shortKey )    ( longKey )
+    #define DEFENDER_REPORT_SELECT_KEY( longKey, shortKey )    longKey
 #else
-    #define DEFENDER_REPORT_SELECT_KEY( longKey, shortKey )    ( shortKey )
+    #define DEFENDER_REPORT_SELECT_KEY( longKey, shortKey )    shortKey
 #endif
 
 /** @endcond */
