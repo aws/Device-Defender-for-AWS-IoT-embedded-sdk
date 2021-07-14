@@ -1,7 +1,7 @@
 # MISRA Compliance
 
 The Device Defender Client Library files conform to the
-[MISRA C:2012](https://www.misra.org.uk/MISRAHome/MISRAC2012/tabid/196/Default.aspx)
+[MISRA C:2012](https://www.misra.org.uk)
 guidelines, with some noted exceptions. Compliance is checked with Coverity static analysis.
 Deviations from the MISRA standard are listed below:
 
