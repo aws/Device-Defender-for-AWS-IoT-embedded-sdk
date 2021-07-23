@@ -3,7 +3,7 @@
 ## v1.1.1 (July 2021)
 
 ### Updates
- - [#45](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/pull/45) Remove parenthesis from key name macros to enable concatinating them with other string literals.
+ - [#45](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/pull/45) Remove parentheses from key name macros to enable concatenating them with other string literals.
 
 ## v1.1.0 (March 2021)
 

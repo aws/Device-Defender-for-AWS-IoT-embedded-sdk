@@ -28,14 +28,14 @@
 #ifndef DEFENDER_H_
 #define DEFENDER_H_
 
+/* Standard includes. */
+#include <stdint.h>
+
 /* *INDENT-OFF* */
 #ifdef __cplusplus
     extern "C" {
 #endif
 /* *INDENT-ON* */
-
-/* Standard includes. */
-#include <stdint.h>
 
 /* DEFENDER_DO_NOT_USE_CUSTOM_CONFIG allows building the Device Defender library
  * without a config file. If a config file is provided, DEFENDER_DO_NOT_USE_CUSTOM_CONFIG
