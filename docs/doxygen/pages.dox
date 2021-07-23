@@ -15,7 +15,7 @@ AWS IoT Device Defender lets you continuously monitor security metrics from devi
 @section defender_memory_requirements Memory Requirements
 @brief Memory requirements of the AWS IoT Device Defender Client Library.
 
-@include{doc} size_table.html
+@include{doc} size_table.md
  */
 
 /**
