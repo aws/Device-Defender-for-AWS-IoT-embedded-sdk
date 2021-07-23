@@ -1,5 +1,5 @@
 /*
- * AWS IoT Device Defender Client v1.1.0
+ * AWS IoT Device Defender Client v1.1.1
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -30,6 +30,12 @@
 
 /* Standard includes. */
 #include <stdint.h>
+
+/* *INDENT-OFF* */
+#ifdef __cplusplus
+    extern "C" {
+#endif
+/* *INDENT-ON* */
 
 /* DEFENDER_DO_NOT_USE_CUSTOM_CONFIG allows building the Device Defender library
  * without a config file. If a config file is provided, DEFENDER_DO_NOT_USE_CUSTOM_CONFIG
@@ -787,5 +793,11 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
 /* @[declare_defender_matchtopic] */
 
 /*-----------------------------------------------------------*/
+
+/* *INDENT-OFF* */
+#ifdef __cplusplus
+    }
+#endif
+/* *INDENT-ON* */
 
 #endif /* DEFENDER_H_ */
