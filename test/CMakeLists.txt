@@ -40,11 +40,11 @@ include( ${MODULE_ROOT_DIR}/defenderFilePaths.cmake )
 add_library( coverity_analysis
              ${DEFENDER_SOURCES} )
 
-# Build Device Defender library without requiring config file.
-target_compile_definitions( coverity_analysis PUBLIC DEFENDER_DO_NOT_USE_CUSTOM_CONFIG=1 )
-
 # Device Defender public include path.
-target_include_directories( coverity_analysis PUBLIC ${DEFENDER_INCLUDE_PUBLIC_DIRS} )
+target_include_directories( coverity_analysis
+                            PUBLIC
+                            ${DEFENDER_INCLUDE_PUBLIC_DIRS}
+                            "${CMAKE_CURRENT_LIST_DIR}/include" )
 
 #  ============================  Test Configuration ============================
 
