@@ -45,7 +45,6 @@ INCLUDES += -I$(SRCDIR)/test/include
 
 # Preprocessor definitions -D...
 DEFINES += -Ddefender_EXPORTS
-# DEFINES += -DDEFENDER_DO_NOT_USE_CUSTOM_CONFIG
 
 # Path to arpa executable
 # ARPA =
