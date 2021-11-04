@@ -13,15 +13,13 @@ list( APPEND library_source_files
 
 # List of library include directories.
 list( APPEND library_include_directories
-      ${DEFENDER_INCLUDE_PUBLIC_DIRS} )
+      ${DEFENDER_INCLUDE_PUBLIC_DIRS}
+      "${CMAKE_CURRENT_LIST_DIR}/../include" )
 
 # Create a target for building library.
 create_library_target( ${library_target_name}
                        "${library_source_files}"
                        "${library_include_directories}" )
-
-# Build Device Defender library without requiring config file.
-target_compile_definitions( ${library_target_name} PUBLIC DEFENDER_DO_NOT_USE_CUSTOM_CONFIG=1 )
 
 # =========================== Test Binary ==============================
 
