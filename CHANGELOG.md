@@ -1,5 +1,10 @@
 # Changelog for AWS IoT Device Defender Library
 
+## v1.2.0 (November 2021)
+
+### Updates
+ - [#50](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/pull/50) Update doxygen version for documentation
+
 ## v1.1.1 (July 2021)
 
 ### Updates
