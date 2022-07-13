@@ -23,7 +23,7 @@ PROJECT_NAME = "FreeRTOS Device Defender"
 
 # Path to litani executable, relative to the root of the repository.
 # This applies even for projects with multiple proof roots.
-LITANI = $(SRCDIR)/test/cbmc/litani/litani
+LITANI ?= litani
 
 # Flags to pass to goto-cc for compilation (typically those passed to gcc -c)
 COMPILE_FLAGS += -fPIC
