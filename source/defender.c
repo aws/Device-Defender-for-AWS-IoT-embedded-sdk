@@ -403,10 +403,10 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
 
         LogError( ( "Invalid input parameter. pBuffer: %p, bufferLength: %u, "
                     "pThingName: %p, thingNameLength: %u, api: %d, pOutLength: %p.",
-                    ( void * ) pBuffer,
-                    ( unsigned int ) bufferLength,
-                    ( void * ) pThingName,
-                    ( unsigned int ) thingNameLength,
+                    ( const void * ) pBuffer,
+                    ( uint16_t ) bufferLength,
+                    ( const void * ) pThingName,
+                    ( uint16_t ) thingNameLength,
                     api,
                     ( void * ) pOutLength ) );
     }
@@ -421,8 +421,8 @@ DefenderStatus_t Defender_GetTopic( char * pBuffer,
 
             LogError( ( "The buffer is too small to hold the topic string. "
                         "Provided buffer size: %u, Required buffer size: %u.",
-                        ( unsigned int ) bufferLength,
-                        ( unsigned int ) topicLength ) );
+                        ( uint16_t ) bufferLength,
+                        ( uint16_t ) topicLength ) );
         }
     }
 
@@ -472,7 +472,7 @@ DefenderStatus_t Defender_MatchTopic( const char * pTopic,
     {
         ret = DefenderBadParameter;
         LogError( ( "Invalid input parameter. pTopic: %p, pOutApi: %p.",
-                    ( void * ) pTopic,
+                    ( const void * ) pTopic,
                     ( void * ) pOutApi ) );
     }
 

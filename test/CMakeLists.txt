@@ -46,6 +46,8 @@ target_include_directories( coverity_analysis
                             ${DEFENDER_INCLUDE_PUBLIC_DIRS}
                             "${CMAKE_CURRENT_LIST_DIR}/include" )
 
+target_compile_options(coverity_analysis PUBLIC -DDISABLE_LOGGING )
+
 #  ============================  Test Configuration ============================
 
 # Include Unity build configuration.
