@@ -26,7 +26,7 @@
  */
 
 /* Standard includes. */
-#ifdef DISABLE_LOGGING
+#ifdef DISABLE_ASSERT
     #define assert( x )
 #else
     #include <assert.h>
