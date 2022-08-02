@@ -47,7 +47,7 @@ target_include_directories( coverity_analysis
                             "${CMAKE_CURRENT_LIST_DIR}/include" )
 
 # Disable logging/assert() calls when building the Coverity analysis target
-target_compile_options(coverity_analysis PUBLIC -DDISABLE_ASSERT -DDISABLE_LOGGING )
+target_compile_options(coverity_analysis PUBLIC -DNDEBUG -DDISABLE_LOGGING )
 
 #  ============================  Test Configuration ============================
 
