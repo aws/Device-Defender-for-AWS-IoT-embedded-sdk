@@ -1,5 +1,13 @@
 # Changelog for AWS IoT Device Defender Library
 
+## v1.2.1 (August 2022)
+
+### Updates
+ - [#60](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/pull/60) MISRA Compliance Update
+ - [#59](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/pull/59) Update CBMC starter kit
+ - [#56](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/pull/56) Loop invariant update
+
+
 ## v1.2.0 (November 2021)
 
 ### Updates
