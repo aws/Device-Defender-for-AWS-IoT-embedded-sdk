@@ -14,4 +14,3 @@ grep 'MISRA Ref 11.4.2' . -rI
 ```
 
 *None.*
-
