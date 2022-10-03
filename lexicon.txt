@@ -61,6 +61,7 @@ md
 mdash
 memcpy
 misra
+mit
 mqtt
 noninfringement
 ns
@@ -82,6 +83,7 @@ remainingtopiclength
 remediate
 rm
 sdk
+spdx
 strlen
 sublicense
 tcp
