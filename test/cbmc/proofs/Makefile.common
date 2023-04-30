@@ -833,7 +833,7 @@ export VIEWER2_CMD
 
 # Omit logs/source.json from report generation until make-sources
 # works correctly with Makefiles that invoke the compiler with
-# mutliple source files at once.
+# multiple source files at once.
 $(PROOFDIR)/report: $(LOGDIR)/result.xml $(LOGDIR)/property.xml $(LOGDIR)/coverage.xml
 	$(LITANI) add-job \
 	  --command "$$VIEWER2_CMD" \
