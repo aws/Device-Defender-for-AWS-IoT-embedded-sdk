@@ -39,7 +39,7 @@
 /**
  * @brief Get the topic length for a given defender API.
  *
- * @param[in] thingNameLength The length of the thing name as registered with AWS IoT.
+ * @param[in] thingNameLength The length of      the thing name as registered with AWS IoT.
  * @param[in] api The defender API value.
  *
  * @return The topic length for the given defender API.
@@ -48,19 +48,19 @@ static uint16_t getTopicLength( uint16_t thingNameLength,
                                 DefenderTopic_t api );
 
 /**
- * @brief Write the format and suffix part for the given defender API to the buffer.
+ * @brief Write the format and suffix part for          the given defender API to the buffer.
  *
  * Format: json or cbor.
  * Suffix: /accepted or /rejected or empty.
  *
- * @param[in] pBuffer The buffer to write the format and suffix part into.
+ * @param[in] pBuffer The buffer to write the           format and suffix part into.
  * @param[in] api The defender API value.
  *
  * @note This function assumes that the buffer is large enough to hold the
  * value.
  */
 static void writeFormatAndSuffix( char * pBuffer,
-                                  DefenderTopic_t api );
+                                                DefenderTopic_t api );
 
 /**
  * @brief Check if the unparsed topic so far starts with the defender prefix.
