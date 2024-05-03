@@ -59,3 +59,4 @@
 #endif /* DISABLE_LOGGING */
 
 #endif /* DEFENDER_CONFIG_H_ */
+
