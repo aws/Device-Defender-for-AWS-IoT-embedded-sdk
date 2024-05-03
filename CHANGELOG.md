@@ -1,5 +1,11 @@
 # Changelog for AWS IoT Device Defender Library
 
+## v1.3.1 (May 2024)
+
+### Updates
+ - [#80](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/pull/80) Fix MISRA violation
+
+
 ## v1.3.0 (October 2022)
 
 ### Updates
