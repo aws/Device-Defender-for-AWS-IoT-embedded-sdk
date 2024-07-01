@@ -26,16 +26,10 @@ safety through the
 See memory requirements for this library
 [here](./docs/doxygen/include/size_table.md).
 
-**AWS IoT Device Defender v1.3.0
-[source code](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/tree/v1.3.0/source)
+**AWS IoT Device Defender v1.4.0
+[source code](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/tree/v1.4.0/source)
 is part of the
-[FreeRTOS 202210.00 LTS](https://github.com/FreeRTOS/FreeRTOS-LTS/tree/202210.00-LTS)
-release.**
-
-**AWS IoT Device Defender v1.1.0
-[source code](https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk/tree/v1.1.0/source)
-is part of the
-[FreeRTOS 202012.01 LTS](https://github.com/FreeRTOS/FreeRTOS-LTS/tree/202012.01-LTS)
+[FreeRTOS 202406.00 LTS](https://github.com/FreeRTOS/FreeRTOS-LTS/tree/202406.00-LTS)
 release.**
 
 ## AWS IoT Device Defender Client Config File
