@@ -39,6 +39,16 @@
 #endif
 /* *INDENT-ON* */
 
+/**
+ * @cond DOXYGEN_IGNORE
+ * The current version of this library.
+ *
+ * If DEFENDER_LIBRARY_VERSION ends with + it represents the version in development
+ * after the numbered release.
+ */
+#define DEFENDER_LIBRARY_VERSION    "v1.4.0+"
+/** @endcond */
+
 /* DEFENDER_DO_NOT_USE_CUSTOM_CONFIG allows building the Device Defender library
  * without a config file. If a config file is provided, DEFENDER_DO_NOT_USE_CUSTOM_CONFIG
  * macro must not be defined.
